@@ -1,0 +1,26 @@
+
+:root {
+  /* SPARTA — Manifest Vision-inspired theme */
+
+  --color-background: #f7f5f0;
+  --color-surface: #ffffff;
+  --color-sidebar: #f7f5f0;
+
+  --color-text: #1c1c1e;
+  --color-text-muted: #777777;
+
+  --color-border: #e5e1d9;
+  --color-accent: #dc242e;
+  --color-primary: #1c1c1e;
+  --color-primary-text: #ffffff;
+
+  --font-family: Arial, Helvetica, sans-serif;
+
+  --radius-small: 6px;
+  --radius-medium: 10px;
+  --radius-large: 16px;
+
+  --sidebar-width: 250px;
+  --header-height: 64px;
+  --mobile-nav-height: 68px;
+}
