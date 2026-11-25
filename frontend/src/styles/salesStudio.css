@@ -1,3 +1,32 @@
+/* VIVAZEN — Brand Typography */
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('../assets/sales-studio/fonts/ClashDisplay-Semibold.woff2')
+    format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('../assets/sales-studio/fonts/ClashDisplay-Bold.woff2')
+    format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/sales-studio/fonts/InterVariable.woff2')
+    format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* VIVAZEN Sales Studio — Foundation v0.1 */
 
 .vz-toolkit {
@@ -280,4 +309,271 @@ a.vz-toolkit-card:hover {
   .vz-preview-canvas {
     padding: 20px;
   }
+}
+/* ========================================
+   SALES STUDIO — COMPACT PRODUCT CARD
+   Master dimensions: 914 x 553
+   ======================================== */
+
+.vz-compact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  aspect-ratio: 914 / 553;
+  background: #ffffff;
+  border: 1.5px solid var(--vz-product-primary);
+  border-radius: 6px;
+  overflow: hidden;
+  container-type: inline-size;
+  font-family: 'Inter', Arial, sans-serif;
+  text-align: left;
+}
+
+.vz-compact-main {
+  display: grid;
+  grid-template-columns: 46% 54%;
+  flex: 1;
+  min-height: 0;
+  padding: 3.5cqw;
+}
+
+.vz-compact-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  z-index: 1;
+}
+
+.vz-compact-brand {
+  font-size: 3.2cqw;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #171717;
+}
+
+.vz-compact-title {
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 5.8cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--vz-product-dark);
+  margin: 2cqw 0 !important;
+}
+
+.vz-compact-rule {
+  width: 80%;
+  height: 2px;
+  background: var(--vz-product-primary);
+  margin: 1cqw 0 2cqw;
+}
+
+.vz-compact-category {
+  font-size: 2.5cqw;
+  font-weight: 600;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vz-compact-volume {
+  font-size: 2.4cqw !important;
+  color: #555555 !important;
+  margin: 1.5cqw 0 !important;
+}
+
+.vz-compact-description {
+  font-size: 2.4cqw;
+  line-height: 1.4;
+  color: #333333;
+}
+
+.vz-compact-images {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+.vz-compact-display {
+  position: absolute;
+  width: 83%;
+  height: 83%;
+  left: 0;
+  bottom: 0;
+  object-fit: contain;
+}
+
+.vz-compact-bottle {
+  position: absolute;
+  width: 38%;
+  height: 96%;
+  right: 0;
+  bottom: 0;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.vz-compact-bottle:only-child {
+  width: 75%;
+  right: 12.5%;
+}
+
+.vz-compact-specifications {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 3.5cqw 3.5cqw;
+  padding: 2.5cqw;
+  background: var(--vz-product-light);
+  border-radius: 3px;
+}
+
+.vz-compact-spec {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  padding: 0 1.5cqw;
+}
+
+.vz-compact-spec + .vz-compact-spec {
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.vz-compact-spec svg {
+  width: 4cqw;
+  height: 4cqw;
+  flex-shrink: 0;
+  color: var(--vz-product-dark);
+}
+
+.vz-compact-spec strong {
+  display: block;
+  font-size: 2.8cqw;
+  font-weight: 700;
+  color: #171717;
+}
+
+.vz-compact-spec span {
+  display: block;
+  font-size: 2cqw;
+  color: #555555;
+}
+/* Sales Studio — Product Card Testing */
+
+.vz-product-select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 13px;
+}
+
+.vz-control-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vz-control-checkbox input {
+  accent-color: var(--color-accent);
+}
+
+.vz-card-test-canvas {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px;
+}
+
+.vz-card-test-canvas > .vz-compact-card {
+  max-width: 914px;
+}
+/* ========================================
+   COMPACT CARD — BRAND REFINEMENT
+   ======================================== */
+
+.vz-compact-card {
+  border: 1px solid #d6d6d6;
+  border-top: 5px solid var(--vz-product-primary);
+  border-radius: 4px;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.vz-compact-main {
+  grid-template-columns: 44% 56%;
+}
+
+.vz-compact-wordmark {
+  display: block;
+  width: 20cqw;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  align-self: flex-start;
+  margin-bottom: 2cqw;
+}
+
+.vz-compact-title {
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 6.2cqw;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 1.5cqw 0 !important;
+}
+
+.vz-compact-rule {
+  width: 90%;
+  height: 2px;
+  margin: 2cqw 0;
+}
+
+.vz-compact-description {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 2.2cqw;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.vz-compact-display {
+  width: 92%;
+  height: 94%;
+  left: -3%;
+  bottom: 0;
+}
+
+.vz-compact-bottle {
+  width: 34%;
+  height: 96%;
+  right: 0;
+  bottom: 0;
+}
+
+.vz-compact-bottle:only-child {
+  width: 75%;
+  right: 12.5%;
+}
+
+.vz-compact-specifications {
+  padding: 2.2cqw;
+}
+
+.vz-compact-spec strong {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 2.7cqw;
+  font-weight: 700;
+}
+
+.vz-compact-spec span {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1.8cqw;
+  font-weight: 400;
 }

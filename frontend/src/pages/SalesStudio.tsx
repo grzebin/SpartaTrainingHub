@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -6,10 +7,31 @@ import {
   FileText,
   Settings2,
 } from 'lucide-react'
+
 import PortalLayout from '../components/PortalLayout'
+import CompactCard from '../components/sales-studio/cards/CompactCard'
+
+import {
+  salesStudioProducts,
+} from '../data/salesStudioProducts'
+
 import '../styles/salesStudio.css'
 
 function SalesStudio() {
+  const [selectedProduct, setSelectedProduct] =
+    useState('energy-focus')
+
+  const [showSpecifications, setShowSpecifications] =
+    useState(true)
+
+  const [showDisplay, setShowDisplay] =
+    useState(true)
+
+  const product =
+    salesStudioProducts.find(
+      (item) => item.id === selectedProduct
+    ) ?? salesStudioProducts[0]
+
   return (
     <PortalLayout portal="spartan">
       <section className="vz-studio">
@@ -27,7 +49,9 @@ function SalesStudio() {
             <span className="vz-eyebrow">
               VIVAZEN FIELD SALES
             </span>
+
             <h1>Sales Studio</h1>
+
             <p>
               Build professional, brand-consistent
               sales materials.
@@ -35,7 +59,7 @@ function SalesStudio() {
           </div>
 
           <span className="vz-version">
-            VERSION 0.1
+            VERSION 0.2 — CARD TEST
           </span>
         </header>
 
@@ -48,53 +72,92 @@ function SalesStudio() {
               <LayoutTemplate size={20} />
               <div>
                 <h3>Templates</h3>
-                <p>Select a sales sheet layout.</p>
+                <p>Compact Card — 914 × 553</p>
               </div>
             </div>
 
             <div className="vz-studio-section">
               <Package size={20} />
-              <div>
+
+              <div style={{ width: '100%' }}>
                 <h3>Products</h3>
-                <p>Configure product selections.</p>
+
+                <select
+                  className="vz-product-select"
+                  value={selectedProduct}
+                  onChange={(event) =>
+                    setSelectedProduct(event.target.value)
+                  }
+                  aria-label="Select product"
+                >
+                  {salesStudioProducts.map((item) => (
+                    <option
+                      key={item.id}
+                      value={item.id}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
             <div className="vz-studio-section">
               <Settings2 size={20} />
+
               <div>
                 <h3>Customization</h3>
-                <p>Configure document content.</p>
+
+                <label className="vz-control-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={showSpecifications}
+                    onChange={(event) =>
+                      setShowSpecifications(
+                        event.target.checked
+                      )
+                    }
+                  />
+                  Show specifications
+                </label>
+
+                <label className="vz-control-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={showDisplay}
+                    onChange={(event) =>
+                      setShowDisplay(
+                        event.target.checked
+                      )
+                    }
+                  />
+                  Show retail display
+                </label>
               </div>
             </div>
 
             <div className="vz-studio-section">
               <FileText size={20} />
+
               <div>
                 <h3>Document Details</h3>
-                <p>Add representative information.</p>
+                <p>Coming in a future release.</p>
               </div>
             </div>
           </aside>
 
           <div className="vz-studio-preview">
             <div className="vz-preview-toolbar">
-              <span>DOCUMENT PREVIEW</span>
-              <span>US Letter — 8.5 × 11 in</span>
+              <span>PRODUCT CARD PREVIEW</span>
+              <span>Compact — 914 × 553</span>
             </div>
 
-            <div className="vz-preview-canvas">
-              <div className="vz-preview-paper">
-                <LayoutTemplate size={48} />
-
-                <h2>Your sales sheet starts here.</h2>
-
-                <p>
-                  Template selection and product
-                  configuration will be available
-                  in the next release.
-                </p>
-              </div>
+            <div className="vz-card-test-canvas">
+              <CompactCard
+                product={product}
+                showSpecifications={showSpecifications}
+                showDisplay={showDisplay}
+              />
             </div>
           </div>
 
