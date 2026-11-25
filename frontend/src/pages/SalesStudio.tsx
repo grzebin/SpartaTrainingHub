@@ -10,6 +10,15 @@ import {
 
 import PortalLayout from '../components/PortalLayout'
 import CompactCard from '../components/sales-studio/cards/CompactCard'
+import CardCustomization from '../components/sales-studio/CardCustomization'
+
+import {
+  defaultCardConfig,
+} from '../components/sales-studio/cardConfig'
+
+import type {
+  CardConfig,
+} from '../components/sales-studio/cardConfig'
 
 import {
   salesStudioProducts,
@@ -18,14 +27,12 @@ import {
 import '../styles/salesStudio.css'
 
 function SalesStudio() {
+
   const [selectedProduct, setSelectedProduct] =
     useState('energy-focus')
 
-  const [showSpecifications, setShowSpecifications] =
-    useState(true)
-
-  const [showDisplay, setShowDisplay] =
-    useState(true)
+  const [config, setConfig] =
+    useState<CardConfig>({ ...defaultCardConfig })
 
   const product =
     salesStudioProducts.find(
@@ -34,6 +41,7 @@ function SalesStudio() {
 
   return (
     <PortalLayout portal="spartan">
+
       <section className="vz-studio">
 
         <Link
@@ -45,6 +53,7 @@ function SalesStudio() {
         </Link>
 
         <header className="vz-studio-header">
+
           <div>
             <span className="vz-eyebrow">
               VIVAZEN FIELD SALES
@@ -59,17 +68,20 @@ function SalesStudio() {
           </div>
 
           <span className="vz-version">
-            VERSION 0.2 — CARD TEST
+            VERSION 0.3 — CONTENT MODULES
           </span>
+
         </header>
 
         <div className="vz-studio-workspace">
 
           <aside className="vz-studio-sidebar">
+
             <h2>Document Builder</h2>
 
             <div className="vz-studio-section">
               <LayoutTemplate size={20} />
+
               <div>
                 <h3>Templates</h3>
                 <p>Compact Card — 914 × 553</p>
@@ -99,40 +111,34 @@ function SalesStudio() {
                     </option>
                   ))}
                 </select>
+
               </div>
             </div>
 
             <div className="vz-studio-section">
               <Settings2 size={20} />
 
-              <div>
+              <div style={{ width: '100%' }}>
+
                 <h3>Customization</h3>
 
-                <label className="vz-control-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={showSpecifications}
-                    onChange={(event) =>
-                      setShowSpecifications(
-                        event.target.checked
-                      )
-                    }
-                  />
-                  Show specifications
-                </label>
+                <p>Select product card content.</p>
 
-                <label className="vz-control-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={showDisplay}
-                    onChange={(event) =>
-                      setShowDisplay(
-                        event.target.checked
-                      )
-                    }
-                  />
-                  Show retail display
-                </label>
+                <CardCustomization
+                  config={config}
+                  onChange={setConfig}
+                />
+
+                <button
+                  type="button"
+                  className="vz-reset-config"
+                  onClick={() =>
+                    setConfig({ ...defaultCardConfig })
+                  }
+                >
+                  Reset to defaults
+                </button>
+
               </div>
             </div>
 
@@ -144,25 +150,35 @@ function SalesStudio() {
                 <p>Coming in a future release.</p>
               </div>
             </div>
+
           </aside>
 
           <div className="vz-studio-preview">
+
             <div className="vz-preview-toolbar">
               <span>PRODUCT CARD PREVIEW</span>
               <span>Compact — 914 × 553</span>
             </div>
 
             <div className="vz-card-test-canvas">
+
               <CompactCard
                 product={product}
-                showSpecifications={showSpecifications}
-                showDisplay={showDisplay}
+                showSpecifications={config.showPackaging}
+                showDisplay={config.showDisplay}
+                showIngredients={config.showIngredients}
+                showDescription={config.showDescription}
+                showBenefits={config.showBenefits}
               />
+
             </div>
+
           </div>
 
         </div>
+
       </section>
+
     </PortalLayout>
   )
 }

@@ -1,4 +1,4 @@
-/* VIVAZEN — Brand Typography */
+/* VIVAZEN â€” Brand Typography */
 
 @font-face {
   font-family: 'Clash Display';
@@ -27,7 +27,7 @@
   font-display: swap;
 }
 
-/* VIVAZEN Sales Studio — Foundation v0.1 */
+/* VIVAZEN Sales Studio â€” Foundation v0.1 */
 
 .vz-toolkit {
   width: 100%;
@@ -310,157 +310,86 @@ a.vz-toolkit-card:hover {
     padding: 20px;
   }
 }
-/* ========================================
-   SALES STUDIO — COMPACT PRODUCT CARD
-   Master dimensions: 914 x 553
-   ======================================== */
-
+/* Compact product card â€” adaptive layout */
 .vz-compact-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   box-sizing: border-box;
   width: 100%;
   aspect-ratio: 914 / 553;
-  background: #ffffff;
-  border: 1.5px solid var(--vz-product-primary);
-  border-radius: 6px;
-  overflow: hidden;
+  background: #fff;
+  border: 1px solid #d6d6d6;
+  border-top: 5px solid var(--vz-product-primary);
+  border-radius: 4px;
   container-type: inline-size;
   font-family: 'Inter', Arial, sans-serif;
   text-align: left;
+  overflow: hidden;
 }
-
 .vz-compact-main {
   display: grid;
-  grid-template-columns: 46% 54%;
-  flex: 1;
+  grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+  grid-template-rows: minmax(0, 1fr);
   min-height: 0;
   padding: 3.5cqw;
+  gap: 1cqw;
 }
-
 .vz-compact-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  z-index: 1;
-}
-
-.vz-compact-brand {
-  font-size: 3.2cqw;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: #171717;
-}
-
-.vz-compact-title {
-  font-family: 'Clash Display', Arial, sans-serif;
-  font-size: 5.8cqw;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: uppercase;
-  color: var(--vz-product-dark);
-  margin: 2cqw 0 !important;
-}
-
-.vz-compact-rule {
-  width: 80%;
-  height: 2px;
-  background: var(--vz-product-primary);
-  margin: 1cqw 0 2cqw;
-}
-
-.vz-compact-category {
-  font-size: 2.5cqw;
-  font-weight: 600;
-  color: #333333;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.vz-compact-volume {
-  font-size: 2.4cqw !important;
-  color: #555555 !important;
-  margin: 1.5cqw 0 !important;
-}
-
-.vz-compact-description {
-  font-size: 2.4cqw;
-  line-height: 1.4;
-  color: #333333;
-}
-
-.vz-compact-images {
-  position: relative;
-  min-width: 0;
   min-height: 0;
 }
-
+.vz-compact-content > * { flex-shrink: 0; }
+.vz-compact-wordmark {
+  display: block;
+  width: 20cqw;
+  max-width: 100%;
+  height: auto;
+  align-self: flex-start;
+  margin-bottom: 2cqw;
+}
+.vz-compact-title {
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 6.2cqw;
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  color: var(--vz-product-dark);
+  margin: 1.5cqw 0 !important;
+}
+.vz-compact-rule {
+  width: 90%; height: 2px;
+  background: var(--vz-product-primary);
+  margin: 2cqw 0;
+}
+.vz-compact-images { position: relative; min-width: 0; min-height: 0; }
 .vz-compact-display {
-  position: absolute;
-  width: 83%;
-  height: 83%;
-  left: 0;
-  bottom: 0;
-  object-fit: contain;
+  position: absolute; width: 92%; height: 94%;
+  left: 0; bottom: 0; object-fit: contain;
 }
-
 .vz-compact-bottle {
-  position: absolute;
-  width: 38%;
-  height: 96%;
-  right: 0;
-  bottom: 0;
-  object-fit: contain;
-  z-index: 2;
+  position: absolute; width: 34%; height: 96%;
+  right: 0; bottom: 0; object-fit: contain; z-index: 2;
 }
-
-.vz-compact-bottle:only-child {
-  width: 75%;
-  right: 12.5%;
-}
-
+.vz-compact-bottle:only-child { width: 75%; right: 12.5%; }
 .vz-compact-specifications {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0 3.5cqw 3.5cqw;
-  padding: 2.5cqw;
+  padding: 2.2cqw;
   background: var(--vz-product-light);
   border-radius: 3px;
 }
+.vz-compact-spec { display: flex; align-items: center; gap: 1.5cqw; padding: 0 1.5cqw; min-width: 0; }
+.vz-compact-spec + .vz-compact-spec { border-left: 1px solid rgba(0,0,0,.15); }
+.vz-compact-spec svg { width: 4cqw; height: 4cqw; flex-shrink: 0; color: var(--vz-product-dark); }
+.vz-compact-spec strong { display: block; font-size: 2.7cqw; font-weight: 700; color: #171717; }
+.vz-compact-spec span { display: block; font-size: 1.8cqw; color: #555; }
 
-.vz-compact-spec {
-  display: flex;
-  align-items: center;
-  gap: 1.5cqw;
-  padding: 0 1.5cqw;
-}
-
-.vz-compact-spec + .vz-compact-spec {
-  border-left: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.vz-compact-spec svg {
-  width: 4cqw;
-  height: 4cqw;
-  flex-shrink: 0;
-  color: var(--vz-product-dark);
-}
-
-.vz-compact-spec strong {
-  display: block;
-  font-size: 2.8cqw;
-  font-weight: 700;
-  color: #171717;
-}
-
-.vz-compact-spec span {
-  display: block;
-  font-size: 2cqw;
-  color: #555555;
-}
-/* Sales Studio — Product Card Testing */
+/* Sales Studio â€” Product Card Testing */
 
 .vz-product-select {
   width: 100%;
@@ -497,83 +426,207 @@ a.vz-toolkit-card:hover {
   max-width: 914px;
 }
 /* ========================================
-   COMPACT CARD — BRAND REFINEMENT
+   SALES STUDIO â€” CONTENT CONFIGURATION
    ======================================== */
 
-.vz-compact-card {
-  border: 1px solid #d6d6d6;
-  border-top: 5px solid var(--vz-product-primary);
-  border-radius: 4px;
-  font-family: 'Inter', Arial, sans-serif;
+.vz-customization-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-top: 18px;
 }
 
-.vz-compact-main {
-  grid-template-columns: 44% 56%;
-}
-
-.vz-compact-wordmark {
-  display: block;
-  width: 20cqw;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  align-self: flex-start;
-  margin-bottom: 2cqw;
-}
-
-.vz-compact-title {
-  font-family: 'Clash Display', Arial, sans-serif;
-  font-size: 6.2cqw;
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
-  margin: 1.5cqw 0 !important;
-}
-
-.vz-compact-rule {
-  width: 90%;
-  height: 2px;
-  margin: 2cqw 0;
-}
-
-.vz-compact-description {
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 2.2cqw;
+.vz-module-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
   line-height: 1.4;
-  font-weight: 400;
+  cursor: pointer;
 }
 
-.vz-compact-display {
-  width: 92%;
-  height: 94%;
-  left: -3%;
-  bottom: 0;
+.vz-module-control input {
+  flex-shrink: 0;
+  accent-color: #ED0800;
+  margin: 0;
 }
 
-.vz-compact-bottle {
-  width: 34%;
-  height: 96%;
-  right: 0;
-  bottom: 0;
+.vz-module-control span {
+  flex: 1;
 }
 
-.vz-compact-bottle:only-child {
-  width: 75%;
-  right: 12.5%;
-}
-
-.vz-compact-specifications {
-  padding: 2.2cqw;
-}
-
-.vz-compact-spec strong {
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 2.7cqw;
+.vz-module-control small {
+  font-size: 8px;
   font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted, #777);
 }
 
-.vz-compact-spec span {
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 1.8cqw;
-  font-weight: 400;
+.vz-module-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
+
+.vz-reset-config {
+  width: 100%;
+  margin-top: 20px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-border, #ddd);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--color-text, #171717);
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.vz-reset-config:hover {
+  border-color: #ED0800;
+  color: #ED0800;
+}
+/* ========================================
+   SALES STUDIO â€” INGREDIENT MODULE
+   ======================================== */
+
+.vz-ingredients-module {
+  width: 100%;
+  margin-top: 1cqw;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.vz-module-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  margin-bottom: 1cqw;
+  color: var(--vz-product-dark);
+  font-size: 1.8cqw;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.vz-module-heading svg {
+  width: 2.5cqw;
+  height: 2.5cqw;
+  flex-shrink: 0;
+}
+
+.vz-ingredient-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.vz-ingredient-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1cqw;
+  padding: 0.8cqw 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 1.8cqw;
+  line-height: 1.3;
+  color: #333333;
+}
+
+.vz-ingredient-row strong {
+  color: #171717;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.vz-ingredient-disclosure {
+  margin-top: 0.8cqw;
+  font-size: 1.3cqw;
+  color: #666666;
+}
+/* ========================================
+   SALES STUDIO â€” DESCRIPTION MODULE
+   ======================================== */
+
+.vz-description-module {
+  width: 100%;
+  margin: 0.8cqw 0 1.2cqw;
+}
+
+.vz-description-module p {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 2.1cqw;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #333333;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+/* ========================================
+   SALES STUDIO â€” BENEFIT MODULE
+   ======================================== */
+
+.vz-benefits-module {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+  width: 100%;
+  margin: 1cqw 0;
+}
+
+.vz-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 2cqw;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #171717;
+}
+
+.vz-benefit-item svg {
+  width: 3.2cqw;
+  height: 3.2cqw;
+  color: var(--vz-product-dark);
+  flex-shrink: 0;
+}
+/* ========================================
+   SALES STUDIO â€” DEVELOPMENT CONTENT
+   ======================================== */
+
+.vz-draft-label {
+  display: block;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #777777;
+  margin-bottom: 0.6cqw;
+}
+
+/* Adaptive density â€” scoped to compact cards */
+.vz-density-standard .vz-compact-main { grid-template-columns: minmax(0, 50fr) minmax(0, 50fr); }
+.vz-density-standard .vz-compact-wordmark { width: 16cqw; margin-bottom: 1cqw; }
+.vz-density-standard .vz-compact-title { font-size: 4.8cqw; margin: .8cqw 0 !important; }
+.vz-density-standard .vz-compact-rule { margin: 1cqw 0; }
+.vz-density-detailed .vz-compact-main { grid-template-columns: minmax(0, 59fr) minmax(0, 41fr); padding: 2.5cqw 3.5cqw; }
+.vz-density-detailed .vz-compact-content { justify-content: flex-start; }
+.vz-density-detailed .vz-compact-wordmark { width: 13cqw; margin-bottom: .5cqw; }
+.vz-density-detailed .vz-compact-title { font-size: 3.7cqw; margin: .5cqw 0 !important; }
+.vz-density-detailed .vz-compact-rule { margin: .6cqw 0; }
+.vz-density-detailed .vz-description-module { margin: .3cqw 0; }
+.vz-density-detailed .vz-description-module p { font-size: 1.65cqw; line-height: 1.25; }
+.vz-density-detailed .vz-benefits-module { gap: .35cqw; margin: .4cqw 0; }
+.vz-density-detailed .vz-benefit-item { font-size: 1.65cqw; gap: .7cqw; }
+.vz-density-detailed .vz-benefit-item svg { width: 2.2cqw; height: 2.2cqw; }
+.vz-density-detailed .vz-ingredients-module { margin-top: .4cqw; }
+.vz-density-detailed .vz-module-heading { font-size: 1.5cqw; margin-bottom: .3cqw; }
+.vz-density-detailed .vz-ingredient-row { font-size: 1.55cqw; padding: .35cqw 0; }
+.vz-density-detailed .vz-ingredient-disclosure { margin-top: .35cqw; }
+.vz-density-detailed .vz-draft-label { margin-bottom: .25cqw; }
+.vz-density-detailed .vz-compact-specifications { padding: 1.5cqw; margin-bottom: 2.5cqw; }
+.vz-density-detailed .vz-compact-spec strong { font-size: 2.3cqw; }
+.vz-density-detailed .vz-compact-spec span { font-size: 1.6cqw; }
+.vz-density-detailed .vz-compact-spec svg { width: 3.2cqw; height: 3.2cqw; }
+.vz-density-detailed .vz-compact-bottle { width: 42%; }
+.vz-density-detailed .vz-compact-bottle:only-child { width: 75%; }
+.vz-compact-card.vz-overflow { outline: 2px dashed #b45309; }
+.vz-card-fit-warning { color: #92400e; font: 600 12px/1.4 Inter, Arial, sans-serif; margin: 0; }
+.vz-card-test-canvas { flex-direction: column; align-items: center; gap: 12px; }
