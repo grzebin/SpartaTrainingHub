@@ -1,0 +1,387 @@
+/* ========================================
+   SALES STUDIO — SQUARE CARD
+   Master dimensions: 2753 x 2785
+   ======================================== */
+
+.vz-square-card {
+  container-type: inline-size;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 750px;
+  aspect-ratio: 2753 / 2785;
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-top: 5px solid var(--vz-product-primary);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqw;
+  overflow: hidden;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* Brand header */
+
+.vz-square-brand {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.vz-square-wordmark {
+  display: block;
+  width: 25cqw;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 2cqw;
+}
+
+.vz-square-title {
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 7cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--vz-product-dark);
+  margin: 0;
+}
+
+.vz-square-rule {
+  width: 100%;
+  height: 2px;
+  background: var(--vz-product-primary);
+  margin-top: 2cqw;
+}
+
+/* Main content area */
+
+.vz-square-main {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 45% minmax(0, 1fr);
+  gap: 2cqw;
+}
+
+.vz-square-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2cqw;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Product photography */
+
+.vz-square-images {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.vz-square-bottle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 48%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 2;
+}
+
+.vz-square-display {
+  position: absolute;
+  left: 0;
+  bottom: 5%;
+  width: 78%;
+  height: 85%;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 1;
+}
+
+.vz-square-bottle-only .vz-square-bottle {
+  left: 50%;
+  right: auto;
+  width: 80%;
+  transform: translateX(-50%);
+}
+
+/* Description module */
+
+.vz-square-card .vz-description-module {
+  margin: 0;
+}
+
+.vz-square-card .vz-description-module p {
+  font-size: 2.2cqw;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Benefit callouts */
+
+.vz-square-card .vz-benefits-module {
+  gap: 1cqw;
+  margin: 0;
+}
+
+.vz-square-card .vz-benefit-item {
+  font-size: 2.1cqw;
+  gap: 1cqw;
+}
+
+.vz-square-card .vz-benefit-item svg {
+  width: 3cqw;
+  height: 3cqw;
+  flex-shrink: 0;
+}
+
+/* Ingredient specifications */
+
+.vz-square-card .vz-ingredients-module {
+  margin: 0;
+}
+
+.vz-square-card .vz-module-heading {
+  font-size: 1.9cqw;
+  gap: 0.8cqw;
+  margin-bottom: 0.8cqw;
+}
+
+.vz-square-card .vz-module-heading svg {
+  width: 2.8cqw;
+  height: 2.8cqw;
+  flex-shrink: 0;
+}
+
+.vz-square-card .vz-ingredient-row {
+  font-size: 1.8cqw;
+  padding: 0.6cqw 0;
+}
+
+.vz-square-card .vz-ingredient-disclosure {
+  font-size: 1.5cqw;
+  margin-top: 0.8cqw;
+}
+
+.vz-square-card .vz-draft-label {
+  font-size: 1.5cqw;
+  margin-bottom: 0.6cqw;
+}
+
+/* Packaging footer */
+
+.vz-square-card > :last-child:not(
+  .vz-square-brand,
+  .vz-square-main
+) {
+  position: static;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  padding: 2cqw;
+  gap: 1cqw;
+}
+
+.vz-square-card > :last-child:not(
+  .vz-square-brand,
+  .vz-square-main
+) strong {
+  font-size: 2.8cqw;
+  line-height: 1.1;
+}
+
+.vz-square-card > :last-child:not(
+  .vz-square-brand,
+  .vz-square-main
+) span {
+  font-size: 1.8cqw;
+  line-height: 1.2;
+}
+
+.vz-square-card > :last-child:not(
+  .vz-square-brand,
+  .vz-square-main
+) svg {
+  width: 4cqw;
+  height: 4cqw;
+  flex-shrink: 0;
+}
+
+/* Minimal layout */
+
+.vz-square-minimal .vz-square-main {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.vz-square-minimal .vz-square-title {
+  font-size: 8cqw;
+}
+
+.vz-square-minimal .vz-square-wordmark {
+  width: 30cqw;
+}
+
+.vz-square-minimal .vz-square-bottle {
+  right: 8%;
+  width: 43%;
+}
+
+.vz-square-minimal .vz-square-display {
+  left: 5%;
+  width: 72%;
+  height: 85%;
+}
+
+.vz-square-minimal
+.vz-square-bottle-only
+.vz-square-bottle {
+  left: 50%;
+  right: auto;
+  width: 65%;
+}
+
+/* Standard layout */
+
+.vz-square-standard .vz-square-main {
+  grid-template-columns: 38% minmax(0, 1fr);
+}
+
+/* Detailed layout */
+
+.vz-square-detailed .vz-square-title {
+  font-size: 6.5cqw;
+}
+
+.vz-square-detailed .vz-square-details {
+  gap: 1.5cqw;
+}
+
+.vz-square-detailed .vz-square-wordmark {
+  width: 23cqw;
+}
+
+/* ========================================
+   TALL CARD — 1348 x 2785
+   ======================================== */
+
+.vz-tall-card {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1348 / 2785;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-top: 5px solid var(--vz-product-primary);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: 'Inter', Arial, sans-serif;
+  container-type: inline-size;
+}
+
+.vz-tall-brand {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.vz-tall-wordmark {
+  display: block;
+  width: 145px;
+  max-width: 45%;
+  height: auto;
+  object-fit: contain;
+}
+
+.vz-tall-title {
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 10cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--vz-product-dark);
+  margin: 16px 0;
+}
+
+.vz-tall-rule {
+  width: 100%;
+  height: 2px;
+  background: var(--vz-product-primary);
+}
+
+.vz-tall-images {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+}
+
+.vz-tall-display {
+  position: absolute;
+  width: 65%;
+  height: 75%;
+  left: 0;
+  bottom: 8%;
+  object-fit: contain;
+}
+
+.vz-tall-bottle {
+  position: absolute;
+  width: 52%;
+  height: 96%;
+  right: 2%;
+  bottom: 2%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.vz-tall-bottle-only .vz-tall-bottle {
+  width: 85%;
+  height: 96%;
+  right: 7.5%;
+}
+
+.vz-tall-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.vz-tall-minimal .vz-tall-title {
+  font-size: 12cqw;
+}
+
+.vz-tall-minimal .vz-tall-wordmark {
+  width: 180px;
+}
+
+.vz-tall-standard .vz-tall-title {
+  font-size: 11cqw;
+}
+
+.vz-tall-detailed .vz-tall-title {
+  font-size: 9cqw;
+}
+
+.vz-tall-detailed .vz-tall-details {
+  gap: 8px;
+  font-size: 13px;
+}
+
+.vz-tall-card > :last-child:not(.vz-tall-images) {
+  flex-shrink: 0;
+}

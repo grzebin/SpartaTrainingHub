@@ -1,0 +1,129 @@
+
+import type { CSSProperties } from 'react'
+
+import type {
+  SalesStudioProduct,
+} from '../../../data/salesStudioProducts'
+
+import wordmark from '../../../assets/sales-studio/brand/vivazen-wordmark-black.png'
+
+import PackagingModule from '../modules/PackagingModule'
+import IngredientsModule from '../modules/IngredientsModule'
+import DescriptionModule from '../modules/DescriptionModule'
+import BenefitsModule from '../modules/BenefitsModule'
+
+type ExtraTallCardProps = {
+  product: SalesStudioProduct
+  showSpecifications?: boolean
+  showDisplay?: boolean
+  showIngredients?: boolean
+  showDescription?: boolean
+  showBenefits?: boolean
+}
+
+function ExtraTallCard({
+  product,
+  showSpecifications = true,
+  showDisplay = true,
+  showIngredients = false,
+  showDescription = false,
+  showBenefits = false,
+}: ExtraTallCardProps) {
+
+  const activeModules = [
+    showDescription,
+    showBenefits,
+    showIngredients,
+  ].filter(Boolean).length
+
+  const density =
+    activeModules === 0
+      ? 'minimal'
+      : activeModules === 1
+        ? 'standard'
+        : 'detailed'
+
+  const cardStyle = {
+    '--vz-product-primary': product.colors.primary,
+    '--vz-product-secondary': product.colors.secondary,
+    '--vz-product-dark': product.colors.dark,
+    '--vz-product-light': product.colors.light,
+  } as CSSProperties
+
+  return (
+    <article
+      className={`vz-extra-tall-card vz-extra-tall-${density}`}
+      style={cardStyle}
+    >
+
+      <div className="vz-extra-tall-brand">
+
+        <img
+          className="vz-extra-tall-wordmark"
+          src={wordmark}
+          alt="VIVAZEN"
+        />
+
+        <h2 className="vz-extra-tall-title">
+          {product.name}
+        </h2>
+
+        <div className="vz-extra-tall-rule" />
+
+      </div>
+
+      <div
+        className={`vz-extra-tall-images ${
+          !showDisplay ? 'vz-extra-tall-bottle-only' : ''
+        }`}
+      >
+
+        {showDisplay && (
+          <img
+            className="vz-extra-tall-display"
+            src={product.images.display}
+            alt={`${product.name} retail display`}
+          />
+        )}
+
+        <img
+          className="vz-extra-tall-bottle"
+          src={product.images.bottle}
+          alt={`${product.name} bottle`}
+        />
+
+      </div>
+
+      {(showDescription ||
+        showBenefits ||
+        showIngredients) && (
+
+        <div className="vz-extra-tall-details">
+
+          {showDescription && (
+            <DescriptionModule product={product} />
+          )}
+
+          {showBenefits && (
+            <BenefitsModule product={product} />
+          )}
+
+          {showIngredients && (
+            <IngredientsModule product={product} />
+          )}
+
+        </div>
+
+      )}
+
+      {showSpecifications && (
+        <div className="vz-extra-tall-packaging">
+          <PackagingModule product={product} />
+        </div>
+      )}
+
+    </article>
+  )
+}
+
+export default ExtraTallCard

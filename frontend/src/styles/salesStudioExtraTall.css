@@ -1,0 +1,450 @@
+
+/* =========================================
+   EXTRA TALL CARD — 900 × 2785
+   ========================================= */
+
+.vz-extra-tall-card {
+  width: 360px;
+  height: 1114px;
+  aspect-ratio: 900 / 2785;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 22px;
+
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-top: 5px solid var(--vz-product-primary);
+  border-radius: 4px;
+
+  font-family: 'Inter', Arial, sans-serif;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.vz-extra-tall-card * {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.vz-extra-tall-brand {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.vz-extra-tall-wordmark {
+  display: block;
+  width: 145px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.vz-extra-tall-title {
+  margin: 0;
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--vz-product-dark);
+}
+
+.vz-extra-tall-rule {
+  height: 2px;
+  width: 100%;
+  margin-top: 16px;
+  background: var(--vz-product-primary);
+}
+
+/* =========================================
+   PRODUCT PHOTOGRAPHY
+   ========================================= */
+
+.vz-extra-tall-images {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 180px;
+  width: 100%;
+}
+
+.vz-extra-tall-bottle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 57%;
+  height: 92%;
+  object-fit: contain;
+  z-index: 2;
+}
+
+.vz-extra-tall-display {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-35%);
+
+  width: 66%;
+  height: 65%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.vz-extra-tall-bottle-only .vz-extra-tall-bottle {
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 78%;
+}
+
+/* =========================================
+   CONTENT MODULES
+   ========================================= */
+
+.vz-extra-tall-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.vz-extra-tall-details * {
+  min-width: 0;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
+.vz-extra-tall-details > * {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.vz-extra-tall-details p {
+  margin: 4px 0;
+}
+
+.vz-extra-tall-details svg {
+  width: 19px !important;
+  height: 19px !important;
+  flex-shrink: 0;
+}
+
+.vz-extra-tall-details h3,
+.vz-extra-tall-details h4 {
+  font-size: 13px !important;
+  font-weight: 700;
+  line-height: 1.3 !important;
+}
+
+/* =========================================
+   CONTENT DENSITY
+   ========================================= */
+
+.vz-extra-tall-minimal .vz-extra-tall-title {
+  font-size: 48px;
+}
+
+.vz-extra-tall-standard .vz-extra-tall-title {
+  font-size: 42px;
+}
+
+.vz-extra-tall-detailed .vz-extra-tall-title {
+  font-size: 36px;
+}
+
+.vz-extra-tall-detailed {
+  gap: 14px;
+}
+
+.vz-extra-tall-detailed .vz-extra-tall-details {
+  gap: 12px;
+}
+
+/* =========================================
+   PACKAGING
+   ========================================= */
+
+.vz-extra-tall-packaging {
+  flex-shrink: 0;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.vz-extra-tall-packaging > * {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+
+  box-sizing: border-box;
+  gap: 0 !important;
+  padding: 10px 14px !important;
+  margin: 0 !important;
+}
+
+.vz-extra-tall-packaging > * > * {
+  display: flex;
+  align-items: center;
+  gap: 12px !important;
+
+  width: 100% !important;
+  min-width: 0;
+  height: auto !important;
+
+  border: none !important;
+  padding: 10px 0 !important;
+  margin: 0 !important;
+}
+
+.vz-extra-tall-packaging > * > * + * {
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.vz-extra-tall-packaging * {
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+}
+
+.vz-extra-tall-packaging strong {
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.vz-extra-tall-packaging small,
+.vz-extra-tall-packaging p {
+  font-size: 12px !important;
+  margin: 0;
+}
+
+.vz-extra-tall-packaging svg {
+  width: 26px !important;
+  height: 26px !important;
+  flex-shrink: 0;
+}
+/* =========================================
+   EXTRA TALL — MODULE OVERRIDES
+   ========================================= */
+
+.vz-extra-tall-card {
+  height: 1114px;
+  min-height: 1114px;
+  max-height: 1114px;
+}
+
+/* CONTENT CONTAINER */
+
+.vz-extra-tall-card .vz-extra-tall-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+/* DEVELOPMENT LABELS */
+
+.vz-extra-tall-card .vz-draft-label {
+  display: block;
+  font-size: 10px;
+  line-height: 1.2;
+  margin: 0 0 5px;
+  padding: 0;
+}
+
+/* DESCRIPTION */
+
+.vz-extra-tall-card .vz-description-module {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.vz-extra-tall-card .vz-description-module p {
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0;
+  padding: 0;
+}
+
+/* BENEFITS */
+
+.vz-extra-tall-card .vz-benefits-module {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+}
+
+.vz-extra-tall-card .vz-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.vz-extra-tall-card .vz-benefit-item svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+}
+
+/* INGREDIENTS */
+
+.vz-extra-tall-card .vz-ingredients-module {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.vz-extra-tall-card .vz-module-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0;
+}
+
+.vz-extra-tall-card .vz-module-heading svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.vz-extra-tall-card .vz-ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.vz-extra-tall-card .vz-ingredient-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-height: 0;
+  font-size: 13px;
+  line-height: 1.3;
+  padding: 6px 0;
+  margin: 0;
+}
+
+.vz-extra-tall-card .vz-ingredient-row strong {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.vz-extra-tall-card .vz-ingredient-disclosure {
+  font-size: 11px;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0;
+}
+
+/* PACKAGING */
+
+.vz-extra-tall-card .vz-compact-specifications {
+  position: static;
+  inset: auto;
+  transform: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  box-sizing: border-box;
+
+  gap: 0;
+  margin: 0;
+  padding: 10px 14px;
+
+  flex-shrink: 0;
+}
+
+.vz-extra-tall-card .vz-compact-spec {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 10px 0;
+
+  border-left: none;
+  border-right: none;
+}
+
+.vz-extra-tall-card .vz-compact-spec + .vz-compact-spec {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.vz-extra-tall-card .vz-compact-spec svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.vz-extra-tall-card .vz-compact-spec strong {
+  display: block;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.vz-extra-tall-card .vz-compact-spec span {
+  display: block;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+/* PRODUCT PHOTOGRAPHY */
+
+.vz-extra-tall-card .vz-extra-tall-images {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.vz-extra-tall-card .vz-extra-tall-bottle {
+  width: 57%;
+  height: 95%;
+}
+
+.vz-extra-tall-card .vz-extra-tall-display {
+  width: 70%;
+  height: 75%;
+}
+
+.vz-extra-tall-card
+.vz-extra-tall-bottle-only
+.vz-extra-tall-bottle {
+  width: 78%;
+}

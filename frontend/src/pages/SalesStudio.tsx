@@ -9,8 +9,23 @@ import {
 } from 'lucide-react'
 
 import PortalLayout from '../components/PortalLayout'
+
 import CompactCard from '../components/sales-studio/cards/CompactCard'
+import WideCard from '../components/sales-studio/cards/WideCard'
+import PortraitCard from '../components/sales-studio/cards/PortraitCard'
+import SquareCard from '../components/sales-studio/cards/SquareCard'
+import TallCard from '../components/sales-studio/cards/TallCard'
+import ExtraTallCard from '../components/sales-studio/cards/ExtraTallCard'
+
 import CardCustomization from '../components/sales-studio/CardCustomization'
+
+import {
+  cardFormats,
+} from '../components/sales-studio/cardFormats'
+
+import type {
+  CardFormatId,
+} from '../components/sales-studio/cardFormats'
 
 import {
   defaultCardConfig,
@@ -25,11 +40,18 @@ import {
 } from '../data/salesStudioProducts'
 
 import '../styles/salesStudio.css'
+import '../styles/salesStudioWide.css'
+import '../styles/salesStudioPortrait.css'
+import '../styles/salesStudioSquare.css'
+import '../styles/salesStudioExtraTall.css'
 
 function SalesStudio() {
 
   const [selectedProduct, setSelectedProduct] =
     useState('energy-focus')
+
+  const [selectedFormat, setSelectedFormat] =
+    useState<CardFormatId>('compact')
 
   const [config, setConfig] =
     useState<CardConfig>({ ...defaultCardConfig })
@@ -38,6 +60,20 @@ function SalesStudio() {
     salesStudioProducts.find(
       (item) => item.id === selectedProduct
     ) ?? salesStudioProducts[0]
+
+  const format =
+    cardFormats.find(
+      (item) => item.id === selectedFormat
+    ) ?? cardFormats[0]
+
+  const cardProps = {
+    product,
+    showSpecifications: config.showPackaging,
+    showDisplay: config.showDisplay,
+    showIngredients: config.showIngredients,
+    showDescription: config.showDescription,
+    showBenefits: config.showBenefits,
+  }
 
   return (
     <PortalLayout portal="spartan">
@@ -68,7 +104,7 @@ function SalesStudio() {
           </div>
 
           <span className="vz-version">
-            VERSION 0.3 — CONTENT MODULES
+            VERSION 0.4 — CARD LIBRARY
           </span>
 
         </header>
@@ -82,9 +118,36 @@ function SalesStudio() {
             <div className="vz-studio-section">
               <LayoutTemplate size={20} />
 
-              <div>
-                <h3>Templates</h3>
-                <p>Compact Card — 914 × 553</p>
+              <div style={{ width: '100%' }}>
+
+                <h3>Card Format</h3>
+
+                <select
+                  className="vz-product-select"
+                  value={selectedFormat}
+                  onChange={(event) =>
+                    setSelectedFormat(
+                      event.target.value as CardFormatId
+                    )
+                  }
+                  aria-label="Select card format"
+                >
+                  {cardFormats.map((item) => (
+                    <option
+                      key={item.id}
+                      value={item.id}
+                      disabled={!item.available}
+                    >
+                      {item.name}
+                      {!item.available ? ' — Coming soon' : ''}
+                    </option>
+                  ))}
+                </select>
+
+                <p>
+                  {format.width} × {format.height} px
+                </p>
+
               </div>
             </div>
 
@@ -92,6 +155,7 @@ function SalesStudio() {
               <Package size={20} />
 
               <div style={{ width: '100%' }}>
+
                 <h3>Products</h3>
 
                 <select
@@ -157,19 +221,26 @@ function SalesStudio() {
 
             <div className="vz-preview-toolbar">
               <span>PRODUCT CARD PREVIEW</span>
-              <span>Compact — 914 × 553</span>
+
+              <span>
+                {format.name} — {format.width} × {format.height}
+              </span>
             </div>
 
             <div className="vz-card-test-canvas">
 
-              <CompactCard
-                product={product}
-                showSpecifications={config.showPackaging}
-                showDisplay={config.showDisplay}
-                showIngredients={config.showIngredients}
-                showDescription={config.showDescription}
-                showBenefits={config.showBenefits}
-              />
+             {selectedFormat === 'extra-tall'
+              ? <ExtraTallCard {...cardProps} />
+              : selectedFormat === 'tall'
+             ? <TallCard {...cardProps} />
+             : selectedFormat === 'square'
+             ? <SquareCard {...cardProps} />
+              : selectedFormat === 'portrait'
+             ? <PortraitCard {...cardProps} />
+              : selectedFormat === 'wide'
+              ? <WideCard {...cardProps} />
+              : <CompactCard {...cardProps} />
+}
 
             </div>
 

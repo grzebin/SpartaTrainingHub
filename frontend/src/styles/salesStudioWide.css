@@ -1,0 +1,317 @@
+/* ========================================
+   SALES STUDIO — WIDE CARD
+   Master dimensions: 2785 x 900
+   ======================================== */
+
+.vz-wide-card {
+  container-type: inline-size;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 2785 / 900;
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-top: 5px solid var(--vz-product-primary);
+  border-radius: 4px;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+  overflow: hidden;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+/* Main composition */
+
+.vz-wide-main {
+  display: grid;
+  grid-template-columns: 32% 36% 32%;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.vz-wide-brand,
+.vz-wide-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.5cqw 1cqw;
+}
+
+.vz-wide-wordmark {
+  display: block;
+  width: 13cqw;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 1.2cqw;
+  align-self: flex-start;
+}
+
+.vz-wide-title {
+  font-family: 'Clash Display', Arial, sans-serif;
+  font-size: 4cqw;
+  font-weight: 700;
+  line-height: 0.98;
+  text-transform: uppercase;
+  color: var(--vz-product-dark);
+  margin: 0;
+}
+
+.vz-wide-rule {
+  width: 90%;
+  height: 2px;
+  flex-shrink: 0;
+  background: var(--vz-product-primary);
+  margin: 1cqw 0;
+}
+
+/* Product photography */
+
+.vz-wide-images {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+.vz-wide-bottle {
+  position: absolute;
+  right: 3%;
+  bottom: 0;
+  width: 42%;
+  height: 96%;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 2;
+}
+
+.vz-wide-display {
+  position: absolute;
+  left: 0;
+  bottom: 5%;
+  width: 78%;
+  height: 76%;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 1;
+}
+
+.vz-wide-bottle-only .vz-wide-bottle {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 65%;
+}
+
+/* Shared content module adjustments */
+
+.vz-wide-card .vz-description-module {
+  margin: 0.4cqw 0;
+}
+
+.vz-wide-card .vz-description-module p {
+  font-size: 1.35cqw;
+  line-height: 1.35;
+}
+
+.vz-wide-card .vz-benefits-module {
+  gap: 0.5cqw;
+  margin: 0.4cqw 0;
+}
+
+.vz-wide-card .vz-benefit-item {
+  font-size: 1.3cqw;
+  gap: 0.6cqw;
+}
+
+.vz-wide-card .vz-benefit-item svg {
+  width: 1.8cqw;
+  height: 1.8cqw;
+}
+
+.vz-wide-card .vz-ingredients-module {
+  margin-top: 0.6cqw;
+}
+
+.vz-wide-card .vz-module-heading {
+  font-size: 1.2cqw;
+  gap: 0.5cqw;
+  margin-bottom: 0.4cqw;
+}
+
+.vz-wide-card .vz-module-heading svg {
+  width: 1.7cqw;
+  height: 1.7cqw;
+}
+
+.vz-wide-card .vz-ingredient-row {
+  font-size: 1.15cqw;
+  padding: 0.4cqw 0;
+}
+
+.vz-wide-card .vz-ingredient-disclosure {
+  font-size: 0.95cqw;
+  margin-top: 0.4cqw;
+}
+
+.vz-wide-card .vz-draft-label {
+  font-size: 0.85cqw;
+  margin-bottom: 0.3cqw;
+}
+
+/* Packaging footer */
+
+.vz-wide-card > :last-child:not(.vz-wide-main) {
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+/* Adaptive density */
+
+.vz-wide-minimal .vz-wide-main {
+  grid-template-columns: 48% 52%;
+}
+
+.vz-wide-minimal .vz-wide-title {
+  font-size: 5.5cqw;
+}
+
+.vz-wide-minimal .vz-wide-wordmark {
+  width: 16cqw;
+}
+
+.vz-wide-standard .vz-wide-title {
+  font-size: 4.5cqw;
+}
+
+.vz-wide-detailed .vz-wide-title {
+  font-size: 3.6cqw;
+}
+
+.vz-wide-main:has(.vz-wide-brand):not(:has(.vz-wide-details)) {
+  grid-template-columns: 48% 52%;
+}
+/* ========================================
+   WIDE CARD — LAYOUT REFINEMENT
+   ======================================== */
+
+.vz-wide-card {
+  padding: 1.5%;
+  gap: 0.8cqw;
+}
+
+/* Main content allocation */
+
+.vz-wide-main {
+  flex: 1 1 0;
+  min-height: 0;
+  grid-template-columns: 32% 35% 33%;
+}
+
+.vz-wide-brand,
+.vz-wide-details {
+  justify-content: center;
+  padding: 0.5cqw;
+}
+
+/* Brand typography */
+
+.vz-wide-wordmark {
+  width: 12cqw;
+  margin-bottom: 0.8cqw;
+}
+
+.vz-wide-title {
+  font-size: 3.8cqw;
+}
+
+.vz-wide-rule {
+  margin: 0.8cqw 0;
+}
+
+.vz-wide-minimal .vz-wide-title {
+  font-size: 5.2cqw;
+}
+
+.vz-wide-detailed .vz-wide-title {
+  font-size: 3.3cqw;
+}
+
+/* Larger, grouped product photography */
+
+.vz-wide-bottle {
+  right: 8%;
+  bottom: 0;
+  width: 44%;
+  height: 100%;
+}
+
+.vz-wide-display {
+  left: 5%;
+  bottom: 3%;
+  width: 72%;
+  height: 85%;
+}
+
+.vz-wide-bottle-only .vz-wide-bottle {
+  left: 50%;
+  right: auto;
+  width: 70%;
+  transform: translateX(-50%);
+}
+
+/* Detailed content spacing */
+
+.vz-wide-card .vz-description-module p {
+  font-size: 1.25cqw;
+  line-height: 1.3;
+}
+
+.vz-wide-card .vz-benefits-module {
+  gap: 0.3cqw;
+  margin: 0.3cqw 0;
+}
+
+.vz-wide-card .vz-benefit-item {
+  font-size: 1.15cqw;
+}
+
+.vz-wide-card .vz-ingredients-module {
+  margin-top: 0.4cqw;
+}
+
+.vz-wide-card .vz-ingredient-row {
+  font-size: 1.05cqw;
+  padding: 0.25cqw 0;
+}
+
+/* Compact packaging footer */
+
+.vz-wide-card > :last-child:not(.vz-wide-main) {
+  position: static;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  height: 4.8cqw;
+  min-height: 0;
+  margin: 0;
+  padding: 0.5cqw 1.5cqw;
+}
+
+.vz-wide-card > :last-child:not(.vz-wide-main) strong {
+  font-size: 1.8cqw;
+  line-height: 1.1;
+}
+
+.vz-wide-card > :last-child:not(.vz-wide-main) span {
+  font-size: 1.1cqw;
+  line-height: 1.2;
+}
+
+.vz-wide-card > :last-child:not(.vz-wide-main) svg {
+  width: 2.5cqw;
+  height: 2.5cqw;
+}
