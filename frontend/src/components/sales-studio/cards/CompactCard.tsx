@@ -11,6 +11,8 @@ import PackagingModule from '../modules/PackagingModule'
 import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
+import PricingModule from '../modules/PricingModule'
+import { calculatePricing } from '../pricing'
 
 type CompactCardProps = {
   product: SalesStudioProduct
@@ -19,6 +21,7 @@ type CompactCardProps = {
   showIngredients?: boolean
   showDescription?: boolean
   showBenefits?: boolean
+    showPricing?: boolean
 }
 
 function CompactCard({
@@ -28,15 +31,17 @@ function CompactCard({
   showIngredients = false,
   showDescription = false,
   showBenefits = false,
+    showPricing = false,
 }: CompactCardProps) {
 
   const contentRef = useRef<HTMLDivElement>(null)
   const [overflow, setOverflow] = useState(false)
 
-  const activeModules = [
+    const activeModules = [
     showDescription,
     showBenefits,
     showIngredients,
+    showPricing,
   ].filter(Boolean).length
 
   const density =
@@ -70,14 +75,21 @@ function CompactCard({
       observer.disconnect()
       cancelAnimationFrame(frame)
     }
-  }, [
+    }, [
     product,
     showSpecifications,
     showDisplay,
     showIngredients,
     showDescription,
     showBenefits,
+    showPricing,
   ])
+  const pricing = calculatePricing({
+    wholesalePerDisplay: product.pricing.wholesalePerDisplay,
+    suggestedRetailPerBottle: product.pricing.suggestedRetailPerBottle,
+    bottlesPerDisplay: product.specifications.bottlesPerDisplay,
+    displaysPerCase: product.specifications.displaysPerCase,
+  })
 
   const cardStyle = {
     '--vz-product-primary': product.colors.primary,
@@ -124,7 +136,14 @@ function CompactCard({
             {showIngredients && (
               <IngredientsModule product={product} />
             )}
-
+{showPricing && (
+  <PricingModule
+    wholesalePerDisplay={pricing.wholesalePerDisplay}
+    wholesalePerBottle={pricing.wholesalePerBottle}
+    suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
+    bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+  />
+)}
           </div>
 
           <div className="vz-compact-images">

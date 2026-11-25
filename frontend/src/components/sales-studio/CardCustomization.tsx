@@ -41,10 +41,10 @@ function CardCustomization({
       available: true,
     },
     {
-      key: 'showPricing',
-      label: 'Standard pricing',
-      available: false,
-    },
+  key: 'showPricing',
+  label: 'Standard pricing',
+  available: import.meta.env.DEV,
+},
     {
       key: 'showProfitability',
       label: 'Retailer profitability',

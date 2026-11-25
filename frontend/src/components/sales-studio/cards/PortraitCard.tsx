@@ -10,6 +10,8 @@ import PackagingModule from '../modules/PackagingModule'
 import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
+import PricingModule from '../modules/PricingModule'
+import { calculatePricing } from '../pricing'
 
 type PortraitCardProps = {
   product: SalesStudioProduct
@@ -18,6 +20,7 @@ type PortraitCardProps = {
   showIngredients?: boolean
   showDescription?: boolean
   showBenefits?: boolean
+  showPricing?: boolean
 }
 
 function PortraitCard({
@@ -27,12 +30,14 @@ function PortraitCard({
   showIngredients = false,
   showDescription = false,
   showBenefits = false,
+  showPricing = false,
 }: PortraitCardProps) {
 
   const activeModules = [
     showDescription,
     showBenefits,
     showIngredients,
+    showPricing,
   ].filter(Boolean).length
 
   const density =
@@ -41,6 +46,13 @@ function PortraitCard({
       : activeModules === 1
         ? 'standard'
         : 'detailed'
+
+  const pricing = calculatePricing({
+    wholesalePerDisplay: product.pricing.wholesalePerDisplay,
+    suggestedRetailPerBottle: product.pricing.suggestedRetailPerBottle,
+    bottlesPerDisplay: product.specifications.bottlesPerDisplay,
+    displaysPerCase: product.specifications.displaysPerCase,
+  })
 
   const cardStyle = {
     '--vz-product-primary': product.colors.primary,
@@ -95,7 +107,7 @@ function PortraitCard({
 
       {(showDescription ||
         showBenefits ||
-        showIngredients) && (
+        showIngredients || showPricing) && (
 
         <div className="vz-portrait-details">
 
@@ -109,6 +121,15 @@ function PortraitCard({
 
           {showIngredients && (
             <IngredientsModule product={product} />
+          )}
+
+          {showPricing && (
+            <PricingModule
+              wholesalePerDisplay={pricing.wholesalePerDisplay}
+              wholesalePerBottle={pricing.wholesalePerBottle}
+              suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
+              bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+            />
           )}
 
         </div>

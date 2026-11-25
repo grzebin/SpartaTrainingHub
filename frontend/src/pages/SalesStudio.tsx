@@ -44,6 +44,7 @@ import '../styles/salesStudioWide.css'
 import '../styles/salesStudioPortrait.css'
 import '../styles/salesStudioSquare.css'
 import '../styles/salesStudioExtraTall.css'
+import '../styles/salesStudioCommercial.css'
 
 function SalesStudio() {
 
@@ -67,13 +68,14 @@ function SalesStudio() {
     ) ?? cardFormats[0]
 
   const cardProps = {
-    product,
-    showSpecifications: config.showPackaging,
-    showDisplay: config.showDisplay,
-    showIngredients: config.showIngredients,
-    showDescription: config.showDescription,
-    showBenefits: config.showBenefits,
-  }
+  product,
+  showSpecifications: config.showPackaging,
+  showDisplay: config.showDisplay,
+  showIngredients: config.showIngredients,
+  showDescription: config.showDescription,
+  showBenefits: config.showBenefits,
+  showPricing: config.showPricing,
+}
 
   return (
     <PortalLayout portal="spartan">

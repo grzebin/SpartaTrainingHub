@@ -11,6 +11,8 @@ import PackagingModule from '../modules/PackagingModule'
 import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
+import PricingModule from '../modules/PricingModule'
+import { calculatePricing } from '../pricing'
 
 type TallCardProps = {
   product: SalesStudioProduct
@@ -19,6 +21,7 @@ type TallCardProps = {
   showIngredients?: boolean
   showDescription?: boolean
   showBenefits?: boolean
+  showPricing?: boolean
 }
 
 function TallCard({
@@ -28,12 +31,14 @@ function TallCard({
   showIngredients = false,
   showDescription = false,
   showBenefits = false,
+  showPricing = false,
 }: TallCardProps) {
 
   const activeModules = [
     showDescription,
     showBenefits,
     showIngredients,
+    showPricing,
   ].filter(Boolean).length
 
   const density =
@@ -42,6 +47,13 @@ function TallCard({
       : activeModules === 1
         ? 'standard'
         : 'detailed'
+
+  const pricing = calculatePricing({
+    wholesalePerDisplay: product.pricing.wholesalePerDisplay,
+    suggestedRetailPerBottle: product.pricing.suggestedRetailPerBottle,
+    bottlesPerDisplay: product.specifications.bottlesPerDisplay,
+    displaysPerCase: product.specifications.displaysPerCase,
+  })
 
   const cardStyle = {
     '--vz-product-primary': product.colors.primary,
@@ -96,7 +108,7 @@ function TallCard({
 
       {(showDescription ||
         showBenefits ||
-        showIngredients) && (
+        showIngredients || showPricing) && (
 
         <div className="vz-tall-details">
 
@@ -110,6 +122,15 @@ function TallCard({
 
           {showIngredients && (
             <IngredientsModule product={product} />
+          )}
+
+          {showPricing && (
+            <PricingModule
+              wholesalePerDisplay={pricing.wholesalePerDisplay}
+              wholesalePerBottle={pricing.wholesalePerBottle}
+              suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
+              bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+            />
           )}
 
         </div>
