@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 
 import type {
@@ -12,7 +11,11 @@ import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
 import PricingModule from '../modules/PricingModule'
+import ProfitabilityModule from '../modules/ProfitabilityModule'
 import { calculatePricing } from '../pricing'
+import { calculateCardLayout } from '../cardLayout'
+import { useCardFit } from '../useCardFit'
+import type { CommercialVariant } from '../modules/CommercialModule'
 
 type CompactCardProps = {
   product: SalesStudioProduct
@@ -22,6 +25,7 @@ type CompactCardProps = {
   showDescription?: boolean
   showBenefits?: boolean
     showPricing?: boolean
+    showProfitability?: boolean
 }
 
 function CompactCard({
@@ -32,58 +36,19 @@ function CompactCard({
   showDescription = false,
   showBenefits = false,
     showPricing = false,
+    showProfitability = false,
 }: CompactCardProps) {
 
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [overflow, setOverflow] = useState(false)
+  const { density } = calculateCardLayout({
+    showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  })
+  // Retain existing detailed CSS until the coordinated stylesheet update.
+  const visualDensity = density === 'dense' ? 'detailed' : density
+  const variant: CommercialVariant = density === 'detailed' || density === 'dense' ? 'condensed' : 'standard'
+  const { cardRef, overflow } = useCardFit(JSON.stringify([
+    product.id, showSpecifications, showDisplay, showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  ]))
 
-    const activeModules = [
-    showDescription,
-    showBenefits,
-    showIngredients,
-    showPricing,
-  ].filter(Boolean).length
-
-  const density =
-    activeModules === 0
-      ? 'minimal'
-      : activeModules === 1
-        ? 'standard'
-        : 'detailed'
-
-  useEffect(() => {
-    const content = contentRef.current
-
-    if (!content) return
-
-    const checkFit = () => {
-      setOverflow(
-        content.scrollHeight > content.clientHeight + 2 ||
-        content.scrollWidth > content.clientWidth + 2
-      )
-    }
-
-    const observer = new ResizeObserver(checkFit)
-
-    observer.observe(content)
-
-    const frame = requestAnimationFrame(checkFit)
-
-    document.fonts.ready.then(checkFit)
-
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(frame)
-    }
-    }, [
-    product,
-    showSpecifications,
-    showDisplay,
-    showIngredients,
-    showDescription,
-    showBenefits,
-    showPricing,
-  ])
   const pricing = calculatePricing({
     wholesalePerDisplay: product.pricing.wholesalePerDisplay,
     suggestedRetailPerBottle: product.pricing.suggestedRetailPerBottle,
@@ -101,16 +66,17 @@ function CompactCard({
   return (
     <>
       <article
-        className={`vz-compact-card vz-density-${density} ${
+        className={`vz-compact-card vz-density-${visualDensity} ${
           overflow ? 'vz-overflow' : ''
         }`}
+        ref={cardRef}
         style={cardStyle}
       >
-        <div className="vz-compact-main">
+        <div className="vz-compact-main" data-fit-region>
 
           <div
             className="vz-compact-content"
-            ref={contentRef}
+            data-fit-region
           >
 
             <img
@@ -138,10 +104,19 @@ function CompactCard({
             )}
 {showPricing && (
   <PricingModule
+    variant={variant}
     wholesalePerDisplay={pricing.wholesalePerDisplay}
     wholesalePerBottle={pricing.wholesalePerBottle}
     suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
     bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+  />
+)}
+{showProfitability && (
+  <ProfitabilityModule
+    variant={variant}
+    grossMargin={pricing.grossMargin}
+    grossProfitPerBottle={pricing.grossProfitPerBottle}
+    grossProfitPerDisplay={pricing.grossProfitPerDisplay}
   />
 )}
           </div>

@@ -1,0 +1,325 @@
+/* Sales Studio v0.5 — layout constraints; import last. */
+:is(.vz-compact-card,.vz-wide-card,.vz-portrait-card,.vz-square-card,.vz-tall-card,.vz-extra-tall-card) {
+  container-type: inline-size; box-sizing: border-box; overflow: hidden;
+  --vz-commercial-label: clamp(10px, 1.65cqw, 13px);
+  --vz-commercial-value: clamp(14px, 2.7cqw, 22px);
+  --vz-commercial-pad: clamp(5px, 1.2cqw, 10px);
+}
+.vz-wide-card { --vz-commercial-label: clamp(10px, 1.1cqw, 12px); --vz-commercial-value: clamp(14px, 1.7cqw, 20px); }
+.vz-square-card { --vz-commercial-value: clamp(14px, 2.3cqw, 20px); }
+:is(.vz-portrait-card,.vz-tall-card,.vz-extra-tall-card) { --vz-commercial-label: clamp(10px, 2.6cqw, 13px); --vz-commercial-value: clamp(15px, 4cqw, 21px); }
+.vz-wide-main,.vz-square-main { grid-template-rows: minmax(0,1fr); }
+:is(.vz-wide-brand,.vz-wide-details,.vz-square-details,.vz-compact-content) { min-width: 0; min-height: 0; justify-content: safe center; overflow: hidden; }
+:is(.vz-wide-brand,.vz-wide-details,.vz-square-details,.vz-compact-content) > * { flex-shrink: 0; }
+.vz-density-detailed .vz-compact-content { justify-content: flex-start; }
+:is(.vz-portrait-details,.vz-tall-details,.vz-extra-tall-card .vz-extra-tall-details) { flex: 0 1 auto; min-height: 0; min-width: 0; overflow: hidden; gap: 8px; }
+:is(.vz-portrait-details,.vz-tall-details,.vz-extra-tall-details) > * { flex-shrink: 0; }
+.vz-portrait-images { min-height: 28cqw; }
+.vz-tall-images { min-height: 38cqw; }
+.vz-extra-tall-card { width: 100%; max-width: 360px; height: auto; min-height: 0; max-height: none; aspect-ratio: 900 / 2785; }
+.vz-extra-tall-card .vz-extra-tall-images { min-height: 42cqw; }
+.vz-extra-tall-card .vz-extra-tall-details .vz-pricing-module * { line-height: 1.25 !important; }
+.vz-extra-tall-card .vz-extra-tall-details .vz-pricing-heading span,
+.vz-extra-tall-card .vz-extra-tall-details .vz-pricing-item span { font-size: 11px !important; }
+.vz-extra-tall-card .vz-extra-tall-details .vz-pricing-item strong { font-size: 17px !important; }
+.vz-extra-tall-card .vz-compact-specifications { padding: 5px 10px !important; }
+.vz-extra-tall-card .vz-compact-spec { padding: 5px 0 !important; gap: 8px !important; }
+.vz-extra-tall-card .vz-compact-spec strong { font-size: 15px !important; }
+.vz-extra-tall-card .vz-compact-spec span { font-size: 11px !important; }
+.vz-extra-tall-card .vz-compact-spec svg { width: 20px !important; height: 20px !important; }
+.vz-tall-card .vz-description-module p,.vz-tall-card .vz-benefit-item,.vz-tall-card .vz-ingredient-row { font-size: clamp(11px, 2.8cqw, 14px); }
+.vz-tall-card .vz-module-heading { font-size: clamp(10px, 2.5cqw, 13px); }
+.vz-tall-card .vz-ingredient-disclosure,.vz-tall-card .vz-draft-label { font-size: 10px; }
+.vz-card-test-canvas > .vz-overflow { outline: 2px dashed #b45309; }
+.vz-card-fit-warning { width: 100%; max-width: 914px; color: #92400e; font: 600 12px/1.4 Inter,Arial,sans-serif; margin: 0; }
+
+/* Adaptive placement — Wide and Square */
+.vz-wide-brand, .vz-wide-details { gap: .35cqw; }
+.vz-wide-card .vz-commercial-condensed .vz-pricing-item > div {
+  grid-template-rows: minmax(1.4em, auto) auto;
+}
+.vz-wide-card .vz-commercial-condensed { --vz-commercial-label: clamp(10px, 1.1cqw, 12px); }
+.vz-square-card .vz-square-main:not(:has(.vz-square-details)) { grid-template-columns: minmax(0,1fr); }
+.vz-square-card .vz-square-main { min-height: 30cqw; }
+.vz-square-card .vz-square-commercial {
+  display: grid; grid-template-columns: minmax(0,1fr); gap: .8cqw;
+  flex: 0 0 auto; min-width: 0; padding: 0; margin: 0;
+}
+/* Exclude commercial section from legacy generic last-child footer styles. */
+.vz-square-card > .vz-square-commercial:last-child strong { font-size: var(--vz-commercial-value); line-height: 1.15; }
+.vz-square-card > .vz-square-commercial:last-child span { font-size: inherit; line-height: 1.25; }
+.vz-square-card > .vz-square-commercial:last-child svg { width: 1.3em; height: 1.3em; }
+.vz-square-card .vz-commercial-condensed .vz-pricing-item > div { grid-template-rows: minmax(1.4em,auto) auto; }
+.vz-square-card:has(.vz-square-commercial) .vz-square-details { gap: 1cqw; }
+.vz-square-card:has(.vz-square-commercial) .vz-square-wordmark { margin-bottom: 1cqw; }
+.vz-square-card:has(.vz-square-commercial) .vz-square-rule { margin-top: 1cqw; }
+.vz-square-card:has(.vz-square-commercial) { gap: 1cqw; }
+/* ========================================
+   WIDE — ADAPTIVE CONTENT DISTRIBUTION
+   ======================================== */
+
+.vz-wide-card:not(.vz-wide-minimal)
+.vz-wide-main:has(.vz-wide-details) {
+  grid-template-columns:
+    minmax(0, 32fr)
+    minmax(0, 30fr)
+    minmax(0, 38fr);
+}
+
+.vz-wide-card .vz-wide-brand,
+.vz-wide-card .vz-wide-details {
+  justify-content: safe center;
+  gap: 0.6cqw;
+}
+
+.vz-wide-card .vz-wide-details
+.vz-pricing-module {
+  margin-top: 0;
+}
+
+.vz-wide-card .vz-commercial-condensed {
+  padding: 0.55cqw;
+}
+
+.vz-wide-card .vz-commercial-condensed
+.vz-pricing-heading {
+  margin-bottom: 0.35cqw;
+}
+/* WIDE — LEFT COLUMN SPACING REFINEMENT */
+
+.vz-wide-card .vz-wide-brand {
+  justify-content: safe center;
+  gap: 0.35cqw;
+}
+
+.vz-wide-card .vz-wide-brand .vz-wide-wordmark {
+  margin-bottom: 0;
+}
+
+.vz-wide-card .vz-wide-brand .vz-wide-title {
+  margin: 0;
+  line-height: 1;
+}
+
+.vz-wide-card .vz-wide-brand .vz-wide-rule {
+  margin-top: 0.25cqw;
+  margin-bottom: 0.25cqw;
+}
+
+.vz-wide-card .vz-wide-brand > section {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vz-wide-card .vz-wide-brand p {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+/* PORTRAIT — adaptive information and commercial zones */
+.vz-portrait-card { gap: 1.3cqw; }
+.vz-portrait-card .vz-portrait-details {
+  flex: 0 0 auto; gap: 1.2cqw; overflow: visible;
+}
+.vz-portrait-card .vz-portrait-information {
+  display: grid; grid-template-columns: minmax(0,1fr); gap: 2cqw;
+  align-items: start; min-width: 0;
+}
+.vz-portrait-card .vz-portrait-information:has(.vz-benefits-module):has(.vz-ingredients-module) {
+  grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+}
+.vz-portrait-information > * { min-width: 0; }
+.vz-portrait-information .vz-ingredient-row { gap: .8cqw; }
+.vz-portrait-information .vz-ingredient-row strong { white-space: nowrap; flex-shrink: 0; }
+.vz-portrait-information .vz-ingredient-row span { min-width: 0; overflow-wrap: anywhere; }
+.vz-portrait-card .vz-portrait-commercial {
+  display: grid; grid-template-columns: minmax(0,1fr); gap: 1cqw;
+  flex: 0 0 auto; min-width: 0; padding: 0; margin: 0;
+}
+.vz-portrait-card .vz-commercial-condensed .vz-pricing-item > div {
+  grid-template-rows: minmax(1.4em,auto) auto;
+}
+/* Neutralize legacy generic footer rules when packaging is disabled. */
+.vz-portrait-card > .vz-portrait-commercial:last-child { gap: 1cqw; padding: 0; }
+.vz-portrait-card > .vz-portrait-commercial:last-child strong { font-size: var(--vz-commercial-value); line-height: 1.15; }
+.vz-portrait-card > .vz-portrait-commercial:last-child span { font-size: inherit; line-height: 1.25; }
+.vz-portrait-card > .vz-portrait-commercial:last-child svg { width: 1.3em; height: 1.3em; }
+.vz-portrait-card:has(.vz-portrait-commercial) .vz-portrait-images { min-height: 38cqw; }
+.vz-portrait-card:has(.vz-portrait-commercial) .vz-portrait-wordmark { margin-bottom: 1cqw; }
+.vz-portrait-card:has(.vz-portrait-commercial) .vz-portrait-rule { margin-top: 1cqw; }
+
+/* PORTRAIT — photography refinement */
+.vz-portrait-card .vz-portrait-images .vz-portrait-bottle { right: 3%; width: 49%; height: 100%; }
+.vz-portrait-card .vz-portrait-images .vz-portrait-display { left: 0; bottom: 2%; width: 79%; height: 96%; }
+.vz-portrait-card .vz-portrait-bottle-only .vz-portrait-bottle { left: 50%; right: auto; width: 75%; }
+
+/* TALL — readable information and packaging */
+.vz-tall-card { gap: 2cqw; }
+.vz-tall-card .vz-tall-title { margin: 2cqw 0; }
+.vz-tall-card .vz-tall-details { gap: 1.6cqw; }
+.vz-tall-card .vz-description-module p,
+.vz-tall-card .vz-benefit-item,
+.vz-tall-card .vz-ingredient-row { font-size: 3.5cqw; line-height: 1.3; }
+.vz-tall-card .vz-module-heading { font-size: 3.2cqw; }
+.vz-tall-card .vz-draft-label,
+.vz-tall-card .vz-ingredient-disclosure { font-size: 2.7cqw; }
+.vz-tall-card .vz-benefit-item svg,
+.vz-tall-card .vz-module-heading svg { width: 4cqw; height: 4cqw; flex-shrink: 0; }
+.vz-tall-card > .vz-compact-specifications { width: 100%; margin: 0; padding: 2cqw 1.5cqw; gap: 1cqw; height: auto; flex: 0 0 auto; }
+.vz-tall-card .vz-compact-spec { gap: 1cqw; min-width: 0; }
+.vz-tall-card .vz-compact-spec strong { font-size: 3.5cqw; line-height: 1.15; }
+.vz-tall-card .vz-compact-spec span { font-size: 2.5cqw; line-height: 1.2; }
+.vz-tall-card .vz-compact-spec svg { width: 4.5cqw; height: 4.5cqw; flex-shrink: 0; }
+
+/* EXTRA TALL — reclaim vertical space for photography */
+.vz-extra-tall-card { gap: 10px; }
+.vz-extra-tall-card .vz-extra-tall-wordmark { margin-bottom: 10px; }
+.vz-extra-tall-card .vz-extra-tall-rule { margin-top: 10px; }
+.vz-extra-tall-card .vz-extra-tall-details { gap: 8px; }
+.vz-extra-tall-card .vz-extra-tall-details .vz-draft-label { font-size: 11px !important; line-height: 1.2 !important; margin-bottom: 3px; }
+.vz-extra-tall-card .vz-extra-tall-details .vz-description-module p { line-height: 1.3 !important; }
+.vz-extra-tall-card .vz-benefits-module { gap: 4px; }
+.vz-extra-tall-card .vz-ingredient-row { padding: 3px 0; }
+.vz-extra-tall-card .vz-extra-tall-details .vz-ingredient-disclosure { font-size: 11px !important; }
+.vz-extra-tall-card .vz-extra-tall-images .vz-extra-tall-bottle { width: 62%; height: 100%; }
+.vz-extra-tall-card .vz-extra-tall-images .vz-extra-tall-display { width: 76%; height: 85%; transform: translateY(-42%); }
+.vz-extra-tall-card .vz-extra-tall-bottle-only .vz-extra-tall-bottle { width: 78%; }
+.vz-extra-tall-card .vz-extra-tall-packaging > .vz-compact-specifications { padding: 4px 10px !important; }
+.vz-extra-tall-card .vz-extra-tall-packaging .vz-compact-spec { padding: 3px 0 !important; }
+
+/* ========================================
+   V0.5 — FINAL DENSITY REFINEMENTS
+   ======================================== */
+
+/* COMPACT — standard density */
+
+.vz-compact-card.vz-density-standard
+.vz-compact-main {
+  grid-template-columns:
+    minmax(0, 52fr)
+    minmax(0, 48fr);
+  padding: 2.8cqw 3.5cqw;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-compact-wordmark {
+  width: 15cqw;
+  margin-bottom: 0.5cqw;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-compact-title {
+  font-size: 4.5cqw;
+  margin: 0.5cqw 0 !important;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-compact-rule {
+  margin: 0.8cqw 0;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-description-module {
+  margin: 0.4cqw 0;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-description-module p {
+  font-size: 1.9cqw;
+  line-height: 1.3;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-benefits-module {
+  gap: 0.5cqw;
+  margin: 0.5cqw 0;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-benefit-item {
+  font-size: 1.85cqw;
+  gap: 0.8cqw;
+  line-height: 1.2;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-benefit-item svg {
+  width: 2.6cqw;
+  height: 2.6cqw;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-draft-label {
+  margin-bottom: 0.35cqw;
+}
+
+.vz-compact-card.vz-density-standard
+.vz-compact-specifications {
+  padding: 1.8cqw;
+  margin-bottom: 2.8cqw;
+}
+
+
+/* WIDE — expanded ingredient density */
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+):has(.vz-pricing-module) {
+  gap: 0.3cqw;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+):has(.vz-pricing-module)
+.vz-ingredients-module {
+  margin-top: 0;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+):has(.vz-pricing-module)
+.vz-module-heading {
+  margin-bottom: 0.2cqw;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+):has(.vz-pricing-module)
+.vz-ingredient-row {
+  padding: 0.12cqw 0;
+  line-height: 1.2;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+):has(.vz-pricing-module)
+.vz-ingredient-disclosure {
+  margin-top: 0.2cqw;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+)
+.vz-commercial-condensed {
+  padding: 0.35cqw 0.55cqw;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+)
+.vz-commercial-condensed
+.vz-pricing-heading {
+  margin-bottom: 0.2cqw;
+}
+
+.vz-wide-details:has(
+  .vz-ingredient-row:nth-child(3)
+)
+.vz-commercial-condensed
+.vz-pricing-item > div {
+  grid-template-rows: auto auto;
+  gap: 0.1cqw;
+}

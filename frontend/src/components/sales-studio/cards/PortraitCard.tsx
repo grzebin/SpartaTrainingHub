@@ -11,7 +11,11 @@ import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
 import PricingModule from '../modules/PricingModule'
+import ProfitabilityModule from '../modules/ProfitabilityModule'
 import { calculatePricing } from '../pricing'
+import { calculateCardLayout } from '../cardLayout'
+import { useCardFit } from '../useCardFit'
+import type { CommercialVariant } from '../modules/CommercialModule'
 
 type PortraitCardProps = {
   product: SalesStudioProduct
@@ -21,6 +25,7 @@ type PortraitCardProps = {
   showDescription?: boolean
   showBenefits?: boolean
   showPricing?: boolean
+  showProfitability?: boolean
 }
 
 function PortraitCard({
@@ -31,21 +36,18 @@ function PortraitCard({
   showDescription = false,
   showBenefits = false,
   showPricing = false,
+  showProfitability = false,
 }: PortraitCardProps) {
 
-  const activeModules = [
-    showDescription,
-    showBenefits,
-    showIngredients,
-    showPricing,
-  ].filter(Boolean).length
-
-  const density =
-    activeModules === 0
-      ? 'minimal'
-      : activeModules === 1
-        ? 'standard'
-        : 'detailed'
+  const { density } = calculateCardLayout({
+    showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  })
+  // Retain existing detailed CSS until the coordinated stylesheet update.
+  const visualDensity = density === 'dense' ? 'detailed' : density
+  const variant: CommercialVariant = density === 'detailed' || density === 'dense' ? 'condensed' : 'standard'
+  const { cardRef, overflow } = useCardFit(JSON.stringify([
+    product.id, showSpecifications, showDisplay, showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  ]))
 
   const pricing = calculatePricing({
     wholesalePerDisplay: product.pricing.wholesalePerDisplay,
@@ -62,12 +64,14 @@ function PortraitCard({
   } as CSSProperties
 
   return (
+    <>
     <article
-      className={`vz-portrait-card vz-portrait-${density}`}
+      className={`vz-portrait-card vz-portrait-${visualDensity} ${overflow ? 'vz-overflow' : ''}`}
+      ref={cardRef}
       style={cardStyle}
     >
 
-      <div className="vz-portrait-brand">
+      <div className="vz-portrait-brand" data-fit-region>
 
         <img
           className="vz-portrait-wordmark"
@@ -105,26 +109,23 @@ function PortraitCard({
 
       </div>
 
-      {(showDescription ||
-        showBenefits ||
-        showIngredients || showPricing) && (
-
-        <div className="vz-portrait-details">
-
-          {showDescription && (
-            <DescriptionModule product={product} />
+      {(showDescription || showBenefits || showIngredients) && (
+        <div className="vz-portrait-details" data-fit-region>
+          {showDescription && <DescriptionModule product={product} />}
+          {(showBenefits || showIngredients) && (
+            <div className="vz-portrait-information" data-fit-region>
+              {showBenefits && <BenefitsModule product={product} />}
+              {showIngredients && <IngredientsModule product={product} />}
+            </div>
           )}
+        </div>
+      )}
 
-          {showBenefits && (
-            <BenefitsModule product={product} />
-          )}
-
-          {showIngredients && (
-            <IngredientsModule product={product} />
-          )}
-
+      {(showPricing || showProfitability) && (
+        <div className="vz-portrait-commercial" data-fit-region>
           {showPricing && (
             <PricingModule
+              variant={variant}
               wholesalePerDisplay={pricing.wholesalePerDisplay}
               wholesalePerBottle={pricing.wholesalePerBottle}
               suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
@@ -132,8 +133,16 @@ function PortraitCard({
             />
           )}
 
-        </div>
+          {showProfitability && (
+            <ProfitabilityModule
+              variant={variant}
+              grossMargin={pricing.grossMargin}
+              grossProfitPerBottle={pricing.grossProfitPerBottle}
+              grossProfitPerDisplay={pricing.grossProfitPerDisplay}
+            />
+          )}
 
+        </div>
       )}
 
       {showSpecifications && (
@@ -141,6 +150,13 @@ function PortraitCard({
       )}
 
     </article>
+    {overflow && (
+      <p className="vz-card-fit-warning" role="status">
+        Selected content exceeds this card's capacity.
+        Remove a content module or choose another card format.
+      </p>
+    )}
+    </>
   )
 }
 

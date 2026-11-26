@@ -11,7 +11,11 @@ import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
 import PricingModule from '../modules/PricingModule'
+import ProfitabilityModule from '../modules/ProfitabilityModule'
 import { calculatePricing } from '../pricing'
+import { calculateCardLayout } from '../cardLayout'
+import { useCardFit } from '../useCardFit'
+import type { CommercialVariant } from '../modules/CommercialModule'
 
 type WideCardProps = {
   product: SalesStudioProduct
@@ -21,6 +25,7 @@ type WideCardProps = {
   showDescription?: boolean
   showBenefits?: boolean
   showPricing?: boolean
+  showProfitability?: boolean
 }
 
 function WideCard({
@@ -31,21 +36,18 @@ function WideCard({
   showDescription = false,
   showBenefits = false,
   showPricing = false,
+  showProfitability = false,
 }: WideCardProps) {
 
-  const activeModules = [
-    showDescription,
-    showBenefits,
-    showIngredients,
-    showPricing,
-  ].filter(Boolean).length
-
-  const density =
-    activeModules === 0
-      ? 'minimal'
-      : activeModules === 1
-        ? 'standard'
-        : 'detailed'
+  const { density } = calculateCardLayout({
+    showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  })
+  // Retain existing detailed CSS until the coordinated stylesheet update.
+  const visualDensity = density === 'dense' ? 'detailed' : density
+  const variant: CommercialVariant = density === 'detailed' || density === 'dense' ? 'condensed' : 'standard'
+  const { cardRef, overflow } = useCardFit(JSON.stringify([
+    product.id, showSpecifications, showDisplay, showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  ]))
 
   const pricing = calculatePricing({
     wholesalePerDisplay: product.pricing.wholesalePerDisplay,
@@ -62,14 +64,16 @@ function WideCard({
   } as CSSProperties
 
   return (
+    <>
     <article
-      className={`vz-wide-card vz-wide-${density}`}
+      className={`vz-wide-card vz-wide-${visualDensity} ${overflow ? 'vz-overflow' : ''}`}
+      ref={cardRef}
       style={cardStyle}
     >
 
-      <div className="vz-wide-main">
+      <div className="vz-wide-main" data-fit-region>
 
-        <div className="vz-wide-brand">
+        <div className="vz-wide-brand" data-fit-region>
 
           <img
             className="vz-wide-wordmark"
@@ -86,6 +90,12 @@ function WideCard({
           {showDescription && (
             <DescriptionModule product={product} />
           )}
+
+          {showBenefits && (
+            <BenefitsModule product={product} />
+          )}
+
+        
 
         </div>
 
@@ -111,12 +121,8 @@ function WideCard({
 
         </div>
 
-        {(showBenefits || showIngredients || showPricing) && (
-          <div className="vz-wide-details">
-
-            {showBenefits && (
-              <BenefitsModule product={product} />
-            )}
+        {(showIngredients || showPricing || showProfitability) && (
+          <div className="vz-wide-details" data-fit-region>
 
             {showIngredients && (
               <IngredientsModule product={product} />
@@ -124,10 +130,20 @@ function WideCard({
 
             {showPricing && (
               <PricingModule
+                variant={variant}
                 wholesalePerDisplay={pricing.wholesalePerDisplay}
                 wholesalePerBottle={pricing.wholesalePerBottle}
                 suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
                 bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+              />
+            )}
+
+            {showProfitability && (
+              <ProfitabilityModule
+                variant={variant}
+                grossMargin={pricing.grossMargin}
+                grossProfitPerBottle={pricing.grossProfitPerBottle}
+                grossProfitPerDisplay={pricing.grossProfitPerDisplay}
               />
             )}
 
@@ -141,6 +157,13 @@ function WideCard({
       )}
 
     </article>
+    {overflow && (
+      <p className="vz-card-fit-warning" role="status">
+        Selected content exceeds this card's capacity.
+        Remove a content module or choose another card format.
+      </p>
+    )}
+    </>
   )
 }
 

@@ -1,121 +1,24 @@
-
-/* ========================================
-   SALES STUDIO — COMMERCIAL MODULES
-   ======================================== */
-
-/* STANDARD PRICING */
-
+/* Sales Studio v0.5 — shared commercial presentation */
 .vz-pricing-module {
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  padding: 12px;
-  background: var(--vz-product-light, #f5f5f5);
-  border-radius: 4px;
-  font-family: 'Inter', Arial, sans-serif;
-}
-
-.vz-pricing-heading {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
+  box-sizing: border-box; width: 100%; min-width: 0; flex: 0 0 auto;
+  padding: var(--vz-commercial-pad, 8px); background: var(--vz-product-light, #f5f5f5);
+  border-radius: 4px; font-family: Inter, Arial, sans-serif;
   color: var(--vz-product-dark, #171717);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-size: var(--vz-commercial-label, 11px); line-height: 1.25;
 }
-
-.vz-pricing-heading svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-.vz-pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.vz-pricing-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  min-width: 0;
-}
-
-.vz-pricing-item svg {
-  width: 18px;
-  height: 18px;
-  color: var(--vz-product-dark, #171717);
-  flex-shrink: 0;
-}
-
-.vz-pricing-item > div {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-
-.vz-pricing-item span {
-  font-size: 10px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: #555555;
-}
-
-.vz-pricing-item strong {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--vz-product-dark, #171717);
-  font-variant-numeric: tabular-nums;
-}
-
-.vz-pricing-item small {
-  font-size: 10px;
-  line-height: 1.2;
-  color: #666666;
-}
-/* ========================================
-   FORMAT-SPECIFIC PRICING LAYOUTS
-   ======================================== */
-
-/* TALL AND EXTRA TALL */
-
-.vz-tall-card .vz-pricing-grid,
-.vz-extra-tall-card .vz-pricing-grid {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
-}
-
-.vz-tall-card .vz-pricing-item,
-.vz-extra-tall-card .vz-pricing-item {
-  align-items: center;
-}
-
-.vz-tall-card .vz-pricing-item > div,
-.vz-extra-tall-card .vz-pricing-item > div {
-  gap: 4px;
-}
-/* WIDE CARD — PRICING ALIGNMENT */
-
-.vz-wide-card .vz-pricing-module .vz-pricing-item > div {
-  display: grid !important;
-  grid-template-rows: 26px auto auto;
-  align-items: start;
-  gap: 3px;
-}
-
-.vz-wide-card .vz-pricing-module .vz-pricing-item > div > span {
-  display: block !important;
-  height: 26px !important;
-  min-height: 26px !important;
-  line-height: 13px !important;
-}
-
-.vz-wide-card .vz-pricing-module .vz-pricing-item strong {
-  white-space: nowrap;
-}
+.vz-pricing-heading { display: flex; align-items: center; gap: .4em; margin-bottom: .55em; font-weight: 700; text-transform: uppercase; }
+.vz-pricing-heading svg { width: 1.3em; height: 1.3em; flex: none; }
+.vz-pricing-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .55em; }
+.vz-pricing-item { min-width: 0; display: flex; flex-direction: column; gap: .25em; }
+.vz-pricing-item > svg { width: 1.3em; height: 1.3em; flex: none; }
+.vz-pricing-item > div { display: grid; grid-template-rows: minmax(2.5em,auto) auto auto; gap: .2em; min-width: 0; }
+.vz-pricing-item span { font-size: inherit; line-height: 1.25; color: #444; overflow-wrap: anywhere; }
+.vz-pricing-item strong { font-size: var(--vz-commercial-value, 17px); line-height: 1.15; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.vz-pricing-item small { font-size: .9em; line-height: 1.25; color: #555; }
+.vz-commercial-condensed .vz-pricing-item > svg { display: none; }
+.vz-commercial-condensed .vz-pricing-item > div { grid-template-rows: minmax(2.5em,auto) auto; }
+.vz-commercial-condensed { padding: calc(var(--vz-commercial-pad, 8px) * .75); }
+.vz-commercial-stacked .vz-pricing-grid { grid-template-columns: minmax(0,1fr); }
+.vz-commercial-stacked .vz-pricing-item { flex-direction: row; align-items: center; }
+.vz-commercial-stacked .vz-pricing-item > div { flex: 1; grid-template-columns: minmax(0,1fr) auto; grid-template-rows: auto; align-items: center; gap: .5em; }
+.vz-pricing-module + .vz-pricing-module { margin-top: 0; }

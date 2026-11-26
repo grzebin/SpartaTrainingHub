@@ -1,13 +1,24 @@
 
-import { Tag, Package, DollarSign } from 'lucide-react'
+import {
+  Tag,
+  Package,
+  DollarSign,
+} from 'lucide-react'
 
 import { formatCurrency } from '../pricing'
+
+import CommercialModule from './CommercialModule'
+
+import type {
+  CommercialVariant,
+} from './CommercialModule'
 
 type PricingModuleProps = {
   wholesalePerDisplay: number
   wholesalePerBottle: number
   suggestedRetailPerBottle: number
   bottlesPerDisplay: number
+  variant?: CommercialVariant
 }
 
 function PricingModule({
@@ -15,65 +26,38 @@ function PricingModule({
   wholesalePerBottle,
   suggestedRetailPerBottle,
   bottlesPerDisplay,
+  variant = 'standard',
 }: PricingModuleProps) {
 
   return (
-    <section className="vz-pricing-module">
-
-      <div className="vz-pricing-heading">
-        <Tag />
-        <span>Standard Pricing</span>
-      </div>
-
-      <div className="vz-pricing-grid">
-
-        <div className="vz-pricing-item">
-          <Package />
-
-          <div>
-            <span>Wholesale / Display</span>
-
-            <strong>
-              {formatCurrency(wholesalePerDisplay)}
-            </strong>
-
-            <small>
-              {bottlesPerDisplay} bottles
-            </small>
-          </div>
-        </div>
-
-        <div className="vz-pricing-item">
-          <DollarSign />
-
-          <div>
-            <span>Wholesale / Bottle</span>
-
-            <strong>
-              {formatCurrency(wholesalePerBottle)}
-            </strong>
-
-            <small>Unit cost</small>
-          </div>
-        </div>
-
-        <div className="vz-pricing-item">
-          <Tag />
-
-          <div>
-            <span>Suggested Retail</span>
-
-            <strong>
-              {formatCurrency(suggestedRetailPerBottle)}
-            </strong>
-
-            <small>Per bottle</small>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
+    <CommercialModule
+      title="Standard Pricing"
+      icon={Tag}
+      variant={variant}
+      metrics={[
+        {
+          icon: Package,
+          label: 'Wholesale / Display',
+          shortLabel: 'Display',
+          value: formatCurrency(wholesalePerDisplay),
+          detail: `${bottlesPerDisplay} bottles`,
+        },
+        {
+          icon: DollarSign,
+          label: 'Wholesale / Bottle',
+          shortLabel: 'Unit Cost',
+          value: formatCurrency(wholesalePerBottle),
+          detail: 'Unit cost',
+        },
+        {
+          icon: Tag,
+          label: 'Suggested Retail',
+          shortLabel: 'SRP / Bottle',
+          value: formatCurrency(suggestedRetailPerBottle),
+          detail: 'Per bottle',
+        },
+      ]}
+    />
   )
 }
 

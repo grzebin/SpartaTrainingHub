@@ -46,15 +46,10 @@ function CardCustomization({
   available: import.meta.env.DEV,
 },
     {
-      key: 'showProfitability',
-      label: 'Retailer profitability',
-      available: false,
-    },
-    {
-      key: 'showPromotion',
-      label: 'Promotional pricing',
-      available: false,
-    },
+  key: 'showProfitability',
+  label: 'Retailer profitability',
+  available: import.meta.env.DEV,
+},
   ]
 
   return (

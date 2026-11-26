@@ -45,6 +45,7 @@ import '../styles/salesStudioPortrait.css'
 import '../styles/salesStudioSquare.css'
 import '../styles/salesStudioExtraTall.css'
 import '../styles/salesStudioCommercial.css'
+import '../styles/salesStudioLayout.css'
 
 function SalesStudio() {
 
@@ -75,6 +76,7 @@ function SalesStudio() {
   showDescription: config.showDescription,
   showBenefits: config.showBenefits,
   showPricing: config.showPricing,
+  showProfitability: config.showProfitability,
 }
 
   return (
@@ -106,7 +108,7 @@ function SalesStudio() {
           </div>
 
           <span className="vz-version">
-            VERSION 0.4 — CARD LIBRARY
+            VERSION 0.5 — PRICING & PROFITABILITY
           </span>
 
         </header>

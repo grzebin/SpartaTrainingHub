@@ -9,7 +9,6 @@ export interface CardConfig {
   showPackaging: boolean
   showPricing: boolean
   showProfitability: boolean
-  showPromotion: boolean
 }
 
 export const defaultCardConfig: CardConfig = {
@@ -20,7 +19,6 @@ export const defaultCardConfig: CardConfig = {
   showPackaging: true,
   showPricing: false,
   showProfitability: false,
-  showPromotion: false,
 }
 
 export type CardFormat =

@@ -11,7 +11,11 @@ import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
 import PricingModule from '../modules/PricingModule'
+import ProfitabilityModule from '../modules/ProfitabilityModule'
 import { calculatePricing } from '../pricing'
+import { calculateCardLayout } from '../cardLayout'
+import { useCardFit } from '../useCardFit'
+import type { CommercialVariant } from '../modules/CommercialModule'
 
 type SquareCardProps = {
   product: SalesStudioProduct
@@ -21,6 +25,7 @@ type SquareCardProps = {
   showDescription?: boolean
   showBenefits?: boolean
   showPricing?: boolean
+  showProfitability?: boolean
 }
 
 function SquareCard({
@@ -31,21 +36,18 @@ function SquareCard({
   showDescription = false,
   showBenefits = false,
   showPricing = false,
+  showProfitability = false,
 }: SquareCardProps) {
 
-  const activeModules = [
-    showDescription,
-    showBenefits,
-    showIngredients,
-    showPricing,
-  ].filter(Boolean).length
-
-  const density =
-    activeModules === 0
-      ? 'minimal'
-      : activeModules === 1
-        ? 'standard'
-        : 'detailed'
+  const { density } = calculateCardLayout({
+    showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  })
+  // Retain existing detailed CSS until the coordinated stylesheet update.
+  const visualDensity = density === 'dense' ? 'detailed' : density
+  const variant: CommercialVariant = density === 'detailed' || density === 'dense' ? 'condensed' : 'standard'
+  const { cardRef, overflow } = useCardFit(JSON.stringify([
+    product.id, showSpecifications, showDisplay, showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  ]))
 
   const pricing = calculatePricing({
     wholesalePerDisplay: product.pricing.wholesalePerDisplay,
@@ -62,12 +64,14 @@ function SquareCard({
   } as CSSProperties
 
   return (
+    <>
     <article
-      className={`vz-square-card vz-square-${density}`}
+      className={`vz-square-card vz-square-${visualDensity} ${overflow ? 'vz-overflow' : ''}`}
+      ref={cardRef}
       style={cardStyle}
     >
 
-      <div className="vz-square-brand">
+      <div className="vz-square-brand" data-fit-region>
 
         <img
           className="vz-square-wordmark"
@@ -83,11 +87,11 @@ function SquareCard({
 
       </div>
 
-      <div className="vz-square-main">
+      <div className="vz-square-main" data-fit-region>
 
-        {activeModules > 0 && (
+        {(showDescription || showBenefits || showIngredients) && (
 
-          <div className="vz-square-details">
+          <div className="vz-square-details" data-fit-region>
 
             {showDescription && (
               <DescriptionModule product={product} />
@@ -101,14 +105,7 @@ function SquareCard({
               <IngredientsModule product={product} />
             )}
 
-            {showPricing && (
-              <PricingModule
-                wholesalePerDisplay={pricing.wholesalePerDisplay}
-                wholesalePerBottle={pricing.wholesalePerBottle}
-                suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
-                bottlesPerDisplay={product.specifications.bottlesPerDisplay}
-              />
-            )}
+
 
           </div>
 
@@ -138,12 +135,42 @@ function SquareCard({
 
       </div>
 
+      {(showPricing || showProfitability) && (
+        <div className="vz-square-commercial" data-fit-region>
+            {showPricing && (
+              <PricingModule
+                variant={variant}
+                wholesalePerDisplay={pricing.wholesalePerDisplay}
+                wholesalePerBottle={pricing.wholesalePerBottle}
+                suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
+                bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+              />
+            )}
+            {showProfitability && (
+              <ProfitabilityModule
+                variant={variant}
+                grossMargin={pricing.grossMargin}
+                grossProfitPerBottle={pricing.grossProfitPerBottle}
+                grossProfitPerDisplay={pricing.grossProfitPerDisplay}
+              />
+            )}
+        </div>
+      )}
+
       {showSpecifications && (
         <PackagingModule product={product} />
       )}
 
     </article>
+    {overflow && (
+      <p className="vz-card-fit-warning" role="status">
+        Selected content exceeds this card's capacity.
+        Remove a content module or choose another card format.
+      </p>
+    )}
+    </>
   )
 }
 
 export default SquareCard
+

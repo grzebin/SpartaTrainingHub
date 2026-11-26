@@ -12,7 +12,11 @@ import IngredientsModule from '../modules/IngredientsModule'
 import DescriptionModule from '../modules/DescriptionModule'
 import BenefitsModule from '../modules/BenefitsModule'
 import PricingModule from '../modules/PricingModule'
+import ProfitabilityModule from '../modules/ProfitabilityModule'
 import { calculatePricing } from '../pricing'
+import { calculateCardLayout } from '../cardLayout'
+import { useCardFit } from '../useCardFit'
+import type { CommercialVariant } from '../modules/CommercialModule'
 
 type ExtraTallCardProps = {
   product: SalesStudioProduct
@@ -22,6 +26,7 @@ type ExtraTallCardProps = {
   showDescription?: boolean
   showBenefits?: boolean
   showPricing?: boolean
+  showProfitability?: boolean
 }
 
 function ExtraTallCard({
@@ -32,21 +37,18 @@ function ExtraTallCard({
   showDescription = false,
   showBenefits = false,
   showPricing = false,
+  showProfitability = false,
 }: ExtraTallCardProps) {
 
-  const activeModules = [
-    showDescription,
-    showBenefits,
-    showIngredients,
-    showPricing,
-  ].filter(Boolean).length
-
-  const density =
-    activeModules === 0
-      ? 'minimal'
-      : activeModules === 1
-        ? 'standard'
-        : 'detailed'
+  const { density } = calculateCardLayout({
+    showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  })
+  // Retain existing detailed CSS until the coordinated stylesheet update.
+  const visualDensity = density === 'dense' ? 'detailed' : density
+  const variant: CommercialVariant = 'stacked'
+  const { cardRef, overflow } = useCardFit(JSON.stringify([
+    product.id, showSpecifications, showDisplay, showDescription, showBenefits, showIngredients, showPricing, showProfitability,
+  ]))
 
   const pricing = calculatePricing({
     wholesalePerDisplay: product.pricing.wholesalePerDisplay,
@@ -63,12 +65,14 @@ function ExtraTallCard({
   } as CSSProperties
 
   return (
+    <>
     <article
-      className={`vz-extra-tall-card vz-extra-tall-${density}`}
+      className={`vz-extra-tall-card vz-extra-tall-${visualDensity} ${overflow ? 'vz-overflow' : ''}`}
+      ref={cardRef}
       style={cardStyle}
     >
 
-      <div className="vz-extra-tall-brand">
+      <div className="vz-extra-tall-brand" data-fit-region>
 
         <img
           className="vz-extra-tall-wordmark"
@@ -108,9 +112,9 @@ function ExtraTallCard({
 
       {(showDescription ||
         showBenefits ||
-        showIngredients || showPricing) && (
+        showIngredients || showPricing || showProfitability) && (
 
-        <div className="vz-extra-tall-details">
+        <div className="vz-extra-tall-details" data-fit-region>
 
           {showDescription && (
             <DescriptionModule product={product} />
@@ -126,10 +130,20 @@ function ExtraTallCard({
 
           {showPricing && (
             <PricingModule
+              variant={variant}
               wholesalePerDisplay={pricing.wholesalePerDisplay}
               wholesalePerBottle={pricing.wholesalePerBottle}
               suggestedRetailPerBottle={pricing.suggestedRetailPerBottle}
               bottlesPerDisplay={product.specifications.bottlesPerDisplay}
+            />
+          )}
+
+          {showProfitability && (
+            <ProfitabilityModule
+              variant={variant}
+              grossMargin={pricing.grossMargin}
+              grossProfitPerBottle={pricing.grossProfitPerBottle}
+              grossProfitPerDisplay={pricing.grossProfitPerDisplay}
             />
           )}
 
@@ -138,12 +152,19 @@ function ExtraTallCard({
       )}
 
       {showSpecifications && (
-        <div className="vz-extra-tall-packaging">
+        <div className="vz-extra-tall-packaging" data-fit-region>
           <PackagingModule product={product} />
         </div>
       )}
 
     </article>
+    {overflow && (
+      <p className="vz-card-fit-warning" role="status">
+        Selected content exceeds this card's capacity.
+        Remove a content module or choose another card format.
+      </p>
+    )}
+    </>
   )
 }
 
