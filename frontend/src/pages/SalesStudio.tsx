@@ -19,6 +19,8 @@ import ExtraTallCard from '../components/sales-studio/cards/ExtraTallCard'
 
 import CardCustomization from '../components/sales-studio/CardCustomization'
 
+import DocumentCanvas from '../components/sales-studio/documents/DocumentCanvas'
+
 import {
   cardFormats,
 } from '../components/sales-studio/cardFormats'
@@ -39,6 +41,10 @@ import {
   salesStudioProducts,
 } from '../data/salesStudioProducts'
 
+import {
+  documentTemplates,
+} from '../components/sales-studio/documents/documentTemplates'
+
 import '../styles/salesStudio.css'
 import '../styles/salesStudioWide.css'
 import '../styles/salesStudioPortrait.css'
@@ -46,6 +52,7 @@ import '../styles/salesStudioSquare.css'
 import '../styles/salesStudioExtraTall.css'
 import '../styles/salesStudioCommercial.css'
 import '../styles/salesStudioLayout.css'
+import '../styles/salesStudioDocuments.css'
 
 function SalesStudio() {
 
@@ -68,16 +75,27 @@ function SalesStudio() {
       (item) => item.id === selectedFormat
     ) ?? cardFormats[0]
 
+  const [previewMode, setPreviewMode] =
+    useState<'card' | 'document'>('document')
+
+  const [selectedTemplate, setSelectedTemplate] =
+    useState('horizontal-3')
+
+  const documentTemplate =
+    documentTemplates.find(
+      (item) => item.id === selectedTemplate
+    ) ?? documentTemplates[0]
+
   const cardProps = {
-  product,
-  showSpecifications: config.showPackaging,
-  showDisplay: config.showDisplay,
-  showIngredients: config.showIngredients,
-  showDescription: config.showDescription,
-  showBenefits: config.showBenefits,
-  showPricing: config.showPricing,
-  showProfitability: config.showProfitability,
-}
+    product,
+    showSpecifications: config.showPackaging,
+    showDisplay: config.showDisplay,
+    showIngredients: config.showIngredients,
+    showDescription: config.showDescription,
+    showBenefits: config.showBenefits,
+    showPricing: config.showPricing,
+    showProfitability: config.showProfitability,
+  }
 
   return (
     <PortalLayout portal="spartan">
@@ -108,7 +126,7 @@ function SalesStudio() {
           </div>
 
           <span className="vz-version">
-            VERSION 0.5 — PRICING & PROFITABILITY
+            VERSION 0.6 — DOCUMENT TEMPLATE LIBRARY
           </span>
 
         </header>
@@ -118,6 +136,54 @@ function SalesStudio() {
           <aside className="vz-studio-sidebar">
 
             <h2>Document Builder</h2>
+
+<div className="vz-studio-section">
+  <LayoutTemplate size={20} />
+
+  <div style={{ width: '100%' }}>
+    <h3>Preview Mode</h3>
+
+    <select
+      className="vz-product-select"
+      value={previewMode}
+      onChange={(event) =>
+        setPreviewMode(
+          event.target.value as 'card' | 'document'
+        )
+      }
+    >
+      <option value="card">Product Card</option>
+      <option value="document">Full Document</option>
+    </select>
+  </div>
+</div>
+
+{previewMode === 'document' && (
+  <div className="vz-studio-section">
+    <FileText size={20} />
+
+    <div style={{ width: '100%' }}>
+      <h3>Document Template</h3>
+
+      <select
+        className="vz-product-select"
+        value={selectedTemplate}
+        onChange={(event) =>
+          setSelectedTemplate(event.target.value)
+        }
+      >
+        {documentTemplates.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ))}
+      </select>
+
+      <p>US Letter — 8.5 × 11 inches</p>
+    </div>
+  </div>
+)}
+
 
             <div className="vz-studio-section">
               <LayoutTemplate size={20} />
@@ -221,32 +287,39 @@ function SalesStudio() {
 
           </aside>
 
-          <div className="vz-studio-preview">
+          
+<div className="vz-studio-preview">
+<div className="vz-preview-toolbar">
+  <span>
+    {previewMode === 'document'
+      ? 'DOCUMENT PREVIEW'
+      : 'PRODUCT CARD PREVIEW'}
+  </span>
 
-            <div className="vz-preview-toolbar">
-              <span>PRODUCT CARD PREVIEW</span>
+  <span>
+    {previewMode === 'document'
+      ? `${documentTemplate.name} — US Letter`
+      : `${format.name} — ${format.width} × ${format.height}`}
+  </span>
+</div>
 
-              <span>
-                {format.name} — {format.width} × {format.height}
-              </span>
-            </div>
+<div className="vz-card-test-canvas">
+  {previewMode === 'document'
+    ? <DocumentCanvas template={documentTemplate} />
+    : selectedFormat === 'extra-tall'
+    ? <ExtraTallCard {...cardProps} />
+    : selectedFormat === 'tall'
+    ? <TallCard {...cardProps} />
+    : selectedFormat === 'square'
+    ? <SquareCard {...cardProps} />
+    : selectedFormat === 'portrait'
+    ? <PortraitCard {...cardProps} />
+    : selectedFormat === 'wide'
+    ? <WideCard {...cardProps} />
+    : <CompactCard {...cardProps} />
+  }
+</div>
 
-            <div className="vz-card-test-canvas">
-
-             {selectedFormat === 'extra-tall'
-              ? <ExtraTallCard {...cardProps} />
-              : selectedFormat === 'tall'
-             ? <TallCard {...cardProps} />
-             : selectedFormat === 'square'
-             ? <SquareCard {...cardProps} />
-              : selectedFormat === 'portrait'
-             ? <PortraitCard {...cardProps} />
-              : selectedFormat === 'wide'
-              ? <WideCard {...cardProps} />
-              : <CompactCard {...cardProps} />
-}
-
-            </div>
 
           </div>
 
